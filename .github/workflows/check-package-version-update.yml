@@ -31,17 +31,11 @@ jobs:
 
     - name: Extract package version from main
       id: main-version
-      #TODO Update this once this is merged. Only needed because main doesn't have package_version in zarf-config.yaml until this is merged.
-      run: |
-        version=$(git show origin/main:zarf-config.yaml | yq eval '.package.create.set.package_version' -)
-        if [ -z "$version" ]; then
-          version=$(git show origin/main:zarf.yaml | yq eval '.metadata.version' -)
-        fi
-        echo "::set-output name=version::$version"
+      run: echo "::set-output name=version::$(git show origin/main:zarf-config.yaml | yq eval '.package.create.set.package_version' -)"
 
     - name: Compare versions
       run: |
-        if semver-tool/src/semver validate "${{ steps.pr-version.outputs.version }}" && semver-tool/src/semver compare "${{ steps.pr-version.outputs.version }}" "${{ steps.main-version.outputs.version }}" -eq 1; then
+        if [ semver-tool/src/semver validate "${{ steps.pr-version.outputs.version }}" -eq "valid" ] && semver-tool/src/semver compare "${{ steps.pr-version.outputs.version }}" "${{ steps.main-version.outputs.version }}" -eq 1; then
           echo "Version updated successfully."
         else
           echo "Version has not been updated properly according to Semantic Versioning!"
