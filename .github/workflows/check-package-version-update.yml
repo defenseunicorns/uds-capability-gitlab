@@ -35,7 +35,7 @@ jobs:
 
     - name: Compare versions
       run: |
-        if [ $(semver-tool/src/semver validate "${{ steps.pr-version.outputs.version }}") = "valid" ] && semver-tool/src/semver compare "${{ steps.pr-version.outputs.version }}" "${{ steps.main-version.outputs.version }}" -eq 1; then
+        if [ $(semver-tool/src/semver validate ${{ steps.pr-version.outputs.version }}) = "valid" ] && semver-tool/src/semver compare "${{ steps.pr-version.outputs.version }}" "${{ steps.main-version.outputs.version }}" -eq 1; then
           echo "Version updated successfully."
         else
           echo "Version has not been updated properly according to Semantic Versioning!"
