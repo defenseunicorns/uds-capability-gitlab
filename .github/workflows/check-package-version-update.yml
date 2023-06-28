@@ -29,14 +29,15 @@ jobs:
       id: pr-version
       run: echo "::set-output name=version::$(yq eval '.package.create.set.package_version' zarf-config.yaml)"
 
-    - name: Checkout main code
-      uses: actions/checkout@v2
-      with:
-        ref: 'main'
-
     - name: Extract package version from main
       id: main-version
-      run: echo "::set-output name=version::$(git show origin/main:zarf-config.yaml | yq eval '.package.create.set.package_version' -)"
+      #TODO Update this once this is merged. Only needed because main doesn't have package_version in zarf-config.yaml until this is merged.
+      run: |
+        version=$(git show origin/main:zarf-config.yaml | yq eval '.package.create.set.package_version' -)
+        if [ -z "$version" ]; then
+          version=$(git show origin/main:zarf.yaml | yq eval '.metadata.version' -)
+        fi
+        echo "::set-output name=version::$version"
 
     - name: Compare versions
       run: |
