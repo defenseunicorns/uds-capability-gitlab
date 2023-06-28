@@ -38,10 +38,10 @@ jobs:
         validation_result=$(semver-tool/src/semver validate "${{ steps.pr-version.outputs.version }}")
         echo $validation_result
 
-        compare_result=$(semver-tool/src/semver compare "${{ steps.pr-version.outputs.version }}" "${{ steps.main-version.outputs.version }}")
+        compare_result=$(semver-tool/src/semver compare "${{ steps.main-version.outputs.version }}" "${{ steps.pr-version.outputs.version }}")
         echo $compare_result
 
-        if [ "$validation_result" = "valid" ] && [ $compare_result -eq 1 ]; then
+        if [ "$validation_result" = "valid" ] && [ $compare_result -eq -1 ]; then
           echo "Version updated successfully."
         else
           echo "Version has not been updated properly according to Semantic Versioning!"
