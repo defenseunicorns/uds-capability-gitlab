@@ -1,0 +1,48 @@
+name: Check Package Version Update
+
+on:
+  pull_request:
+    branches:
+      - 'main' # This runs the action on pull request events for the main branch
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout PR code
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Install yq and semver-tool
+      run: |
+        sudo snap install yq
+        git clone https://github.com/fsaintjacques/semver-tool.git
+        chmod +x semver-tool/src/semver
+
+    - name: Extract package version from PR
+      id: pr-version
+      run: echo "::set-output name=version::$(yq eval '.package.create.set.package_version' zarf-config.yaml)"
+
+    - name: Checkout main code
+      uses: actions/checkout@v2
+      with:
+        ref: 'main'
+
+    - name: Extract package version from main
+      id: main-version
+      run: echo "::set-output name=version::$(yq eval '.package.create.set.package_version' zarf-config.yaml)"
+
+    - name: Compare versions
+      run: |
+        if semver-tool/src/semver check "${{ steps.pr-version.outputs.version }}" && semver-tool/src/semver compare "${{ steps.pr-version.outputs.version }}" "${{ steps.main-version.outputs.version }}" -eq 1; then
+          echo "Version updated successfully."
+        else
+          echo "Version has not been updated properly according to Semantic Versioning!"
+          exit 1
+        fi
