@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: {{ .Values.application.name }}
+  namespace: bigbang
+spec:
+  interval: 10m
+  url: {{ .Values.application.repository }}
+  ref:
+    tag: "{{ .Values.application.tag }}"

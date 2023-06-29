@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: swf-test
+  version: "0.0.1"
+  architecture: amd64
+
+components:
+  - name: gitlab
+    import:
+      name: gitlab
+      url: oci://registry-1.docker.io/corang/gitlab:0.0.1-skeleton
