@@ -7,6 +7,10 @@ metadata:
   architecture: amd64
 
 components:
+  - name: gitlab-values
+    files:
+      - source: values-gitlab.yaml
+        target: values-gitlab.yaml
   - name: gitlab
     required: true
     description: "Deploy gitlab via flux"
