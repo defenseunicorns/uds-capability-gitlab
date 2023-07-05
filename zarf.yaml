@@ -24,8 +24,9 @@ components:
               autoIndent: true
     charts:
       - name: flux-app
-        version: 0.1.0
-        localPath: flux-app
+        version: 1.0.0
+        url: https://github.com/defenseunicorns/flux-app-helm-chart.git
+        gitPath: charts
         namespace: bigbang
         valuesFiles:
           - gitlab-flux-values.yaml
