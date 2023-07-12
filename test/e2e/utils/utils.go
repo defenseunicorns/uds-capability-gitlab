@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	customteststructure "github.com/defenseunicorns/uds-gitlab-capability/test/e2e/terratest/teststructure"
-	"github.com/defenseunicorns/uds-gitlab-capability/test/e2e/types"
+	customteststructure "github.com/defenseunicorns/uds-capability-gitlab/test/e2e/terratest/teststructure"
+	"github.com/defenseunicorns/uds-capability-gitlab/test/e2e/types"
 	"github.com/gruntwork-io/terratest/modules/aws"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/retry"

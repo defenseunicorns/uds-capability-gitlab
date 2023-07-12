@@ -3,7 +3,6 @@ module github.com/defenseunicorns/uds-capability-gitlab
 go 1.20
 
 require (
-	github.com/defenseunicorns/zarf-package-software-factory v0.0.0-20230607190914-e7f562f19db6
 	github.com/gruntwork-io/terratest v0.43.7
 	github.com/stretchr/testify v1.8.4
 )

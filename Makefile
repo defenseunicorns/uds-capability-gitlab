@@ -102,7 +102,7 @@ cluster/destroy:
 # Build Section
 ########################################################################
 
-build/all: build build/zarf build/zarf-init.sha256 build/dubbd-pull-k3d.sha256 build/uds-gitlab-capability
+build/all: build build/zarf build/zarf-init.sha256 build/dubbd-pull-k3d.sha256 build/uds-capability-gitlab
 
 build:
 	mkdir -p build
@@ -132,14 +132,14 @@ build/dubbd-pull-k3d.sha256: | build
 	echo "Creating shasum of the dubbd-k3d package"
 	shasum -a 256 build/zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst | awk '{print $$1}' > build/dubbd-pull-k3d.sha256
 
-build/uds-gitlab-capability: | build
+build/uds-capability-gitlab: | build
 	build/zarf package create . --skip-sbom --confirm --output-directory build
 
 ########################################################################
 # Deploy Section
 ########################################################################
 
-deploy/all: deploy/init deploy/dubbd-k3d deploy/gitlab-capability
+deploy/all: deploy/init deploy/dubbd-k3d deploy/uds-capability-gitlab
 
 deploy/init: ## Deploy the zarf init package
 	./build/zarf init --confirm --components=git-server
@@ -147,5 +147,5 @@ deploy/init: ## Deploy the zarf init package
 deploy/dubbd-k3d: ## Deploy the k3d flavor of DUBBD
 	cd ./build && ./zarf package deploy zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst --confirm
 
-deploy/gitlab-capability: ## Deploy the gilab capability
+deploy/uds-capability-gitlab: ## Deploy the gilab capability
 	cd ./build && ./zarf package deploy zarf-package-gitlab-*.tar.zst --confirm --components=gitlab-values
