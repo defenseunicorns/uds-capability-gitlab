@@ -27,17 +27,10 @@ func TestAllServicesRunning(t *testing.T) { //nolint:funlen
 		output, err := platform.RunSSHCommandAsSudo(`kubectl get nodes`)
 		require.NoError(t, err, output)
 
-		// In order for the GitLab HelmRelease to fully reconcile, we need to manually trigger a backup, so that 2 remaining PVCs will bind.
-		// Wait for the "gitlab-toolbox-backup" CronJob to exist.
-		output, err = platform.RunSSHCommandAsSudo(`timeout 2400 bash -c "while ! kubectl get cronjob gitlab-toolbox-backup -n gitlab; do sleep 5; done"`)
-		require.NoError(t, err, output)
-		// Trigger the backup
-		output, err = platform.RunSSHCommandAsSudo(`kubectl create job -n gitlab --from=cronjob/gitlab-toolbox-backup gitlab-toolbox-backup-manual`)
-		require.NoError(t, err, output)
-
 		// Wait for the GitLab Webservice Deployment to exist.
 		output, err = platform.RunSSHCommandAsSudo(`timeout 1200 bash -c "while ! kubectl get deployment gitlab-gitlab-webservice-default -n gitlab; do sleep 5; done"`)
 		require.NoError(t, err, output)
+
 		// Wait for the GitLab Webservice Deployment to report that it is ready
 		output, err = platform.RunSSHCommandAsSudo(`kubectl rollout status deployment/gitlab-gitlab-webservice-default -n gitlab --watch --timeout=1200s`)
 		require.NoError(t, err, output)
