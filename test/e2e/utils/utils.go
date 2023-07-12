@@ -117,7 +117,7 @@ func SetupTestPlatform(t *testing.T, platform *types.TestPlatform) { //nolint:fu
 		require.NoError(t, err, output)
 
 		// Log into ghcr.io
-		output, err = platform.RunSSHCommandAsSudo(fmt.Sprintf(`~/app/build/zarf tools registry login ghcr.io -u %v -p %v`, ghciUsername, ghciPassword))
+		output, err = platform.RunSSHCommandAsSudo(fmt.Sprintf(`~/app/build/zarf tools registry login ghcr.io -u %v -p %v`, ghcrUsername, ghcrPassword))
 		require.NoError(t, err, output)
 
 		// Create cluster build and deploy
