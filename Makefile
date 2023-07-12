@@ -87,10 +87,10 @@ test-ssh: ## Run this if you set SKIP_TEARDOWN=1 and want to SSH into the still-
 # Cluster Section
 ########################################################################
 
-cluster/full: | cluster/destroy cluster/create build/zarf-init.sha256 deploy/init build/dubbd-pull-k3d.sha256 deploy/dubbd-k3d
+cluster/full: | cluster/destroy cluster/create build/all deploy/all
 
 cluster/create:
-	k3d cluster create k3d-test-cluster --config utils/k3d/k3d-config.yaml
+	k3d cluster create k3d-test-cluster --config utils/k3d/k3d-config.yaml -v /etc/machine-id:/etc/machine-id@server:*
 	k3d kubeconfig merge k3d-test-cluster -o /home/${USER}/cluster-kubeconfig.yaml
 	utils/metallb/install.sh
 	echo "Cluster is ready!"
@@ -102,6 +102,8 @@ cluster/destroy:
 # Build Section
 ########################################################################
 
+build/all: build build/zarf build/zarf-init.sha256 build/dubbd-pull-k3d.sha256 build/uds-gitlab-capability
+
 build:
 	mkdir -p build
 
@@ -109,43 +111,41 @@ build:
 clean: ## Clean up build files
 	rm -rf ./build
 
-build/zarf: | build/ ## Download the Linux flavor of Zarf to the build dir
+build/zarf: | build ## Download the Linux flavor of Zarf to the build dir
 	echo "Downloading zarf"
 	curl -sL https://github.com/defenseunicorns/zarf/releases/download/$(ZARF_VERSION)/zarf_$(ZARF_VERSION)_Linux_amd64 -o build/zarf
 	chmod +x build/zarf
 
-build/zarf-mac-intel: | build/ ## Download the Mac (Intel) flavor of Zarf to the build dir
+build/zarf-mac-intel: | build ## Download the Mac (Intel) flavor of Zarf to the build dir
 	echo "Downloading zarf-mac-intel"
 	curl -sL https://github.com/defenseunicorns/zarf/releases/download/$(ZARF_VERSION)/zarf_$(ZARF_VERSION)_Darwin_amd64 -o build/zarf-mac-intel
 	chmod +x build/zarf-mac-intel
 
-build/zarf-init.sha256: | build/ ## Download the init package
+build/zarf-init.sha256: | build ## Download the init package
 	echo "Downloading zarf-init-amd64-$(ZARF_VERSION).tar.zst"
 	curl -sL https://github.com/defenseunicorns/zarf/releases/download/$(ZARF_VERSION)/zarf-init-amd64-$(ZARF_VERSION).tar.zst -o build/zarf-init-amd64-$(ZARF_VERSION).tar.zst
 	echo "Creating shasum of the init package"
 	shasum -a 256 build/zarf-init-amd64-$(ZARF_VERSION).tar.zst | awk '{print $$1}' > build/zarf-init.sha256
 
-build/dubbd-pull-k3d.sha256: | build/
+build/dubbd-pull-k3d.sha256: | build
 	./build/zarf package pull oci://ghcr.io/defenseunicorns/packages/dubbd-k3d:$(DUBBD_K3D_VERSION)-amd64 --oci-concurrency 9 --output-directory build
 	echo "Creating shasum of the dubbd-k3d package"
 	shasum -a 256 build/zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst | awk '{print $$1}' > build/dubbd-pull-k3d.sha256
 
-build/uds-gitlab-capability: | build/
+build/uds-gitlab-capability: | build
 	build/zarf package create . --skip-sbom --confirm --output-directory build
-
-default-build: ## All in one make target for the default di2me repo (only x86) - uses the current branch/tag of the repo
-	make build
-	make build/zarf
-	make build/zarf-init.sha256
-	make build/dubbd-pull-k3d.sha256
-	make build/uds-gitlab-capability
 
 ########################################################################
 # Deploy Section
 ########################################################################
 
-.PHONY: deploy-local
-deploy-local: ## Deploy created zarf package to local cluster
-	cat test/e2e/zarf-config.toml | grep -v progress > build/zarf-config.toml
-	cd build && ./zarf init --components git-server --confirm
-	cd build && ./zarf package deploy zarf-package-gitlab-amd64-*.tar.zst --no-progress --confirm
+deploy/all: deploy/init deploy/dubbd-k3d deploy/gitlab-capability
+
+deploy/init: ## Deploy the zarf init package
+	./build/zarf init --confirm --components=git-server
+
+deploy/dubbd-k3d: ## Deploy the k3d flavor of DUBBD
+	cd ./build && ./zarf package deploy zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst --confirm
+
+deploy/gitlab-capability: ## Deploy the gilab capability
+	cd ./build && ./zarf package deploy zarf-package-gitlab-*.tar.zst --confirm --components=gitlab-values

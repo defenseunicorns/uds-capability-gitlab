@@ -19,9 +19,11 @@ components:
         before:
           - cmd: cat values-gitlab.yaml
             description: Read gitlab values into variable.
+            mute: true
             setVariables:
             - name: GITLAB_VALUES
               autoIndent: true
+              sensitive: true
     charts:
       - name: flux-app
         version: 1.0.0

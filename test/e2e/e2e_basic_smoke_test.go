@@ -3,8 +3,8 @@ package test_test
 import (
 	"testing"
 
-	"github.com/defenseunicorns/zarf-package-software-factory/test/e2e/types"
-	"github.com/defenseunicorns/zarf-package-software-factory/test/e2e/utils"
+	"github.com/defenseunicorns/uds-capability-gitlab/test/e2e/types"
+	"github.com/defenseunicorns/uds-capability-gitlab/test/e2e/utils"
 	teststructure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"github.com/stretchr/testify/require"
 )
@@ -36,10 +36,10 @@ func TestAllServicesRunning(t *testing.T) { //nolint:funlen
 		require.NoError(t, err, output)
 
 		// Wait for the GitLab Webservice Deployment to exist.
-		output, err = platform.RunSSHCommandAsSudo(`timeout 1200 bash -c "while ! kubectl get deployment gitlab-webservice-default -n gitlab; do sleep 5; done"`)
+		output, err = platform.RunSSHCommandAsSudo(`timeout 1200 bash -c "while ! kubectl get deployment gitlab-gitlab-webservice-default -n gitlab; do sleep 5; done"`)
 		require.NoError(t, err, output)
 		// Wait for the GitLab Webservice Deployment to report that it is ready
-		output, err = platform.RunSSHCommandAsSudo(`kubectl rollout status deployment/gitlab-webservice-default -n gitlab --watch --timeout=1200s`)
+		output, err = platform.RunSSHCommandAsSudo(`kubectl rollout status deployment/gitlab-gitlab-webservice-default -n gitlab --watch --timeout=1200s`)
 		require.NoError(t, err, output)
 
 		// Ensure that GitLab is available outside of the cluster.

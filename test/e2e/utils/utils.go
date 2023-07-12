@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	customteststructure "github.com/defenseunicorns/zarf-package-software-factory/test/e2e/terratest/teststructure"
-	"github.com/defenseunicorns/zarf-package-software-factory/test/e2e/types"
+	customteststructure "github.com/defenseunicorns/uds-gitlab-capability/test/e2e/terratest/teststructure"
+	"github.com/defenseunicorns/uds-gitlab-capability/test/e2e/types"
 	"github.com/gruntwork-io/terratest/modules/aws"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/retry"
@@ -35,11 +35,15 @@ func SetupTestPlatform(t *testing.T, platform *types.TestPlatform) { //nolint:fu
 	require.NoError(t, err)
 	registry1Password, err := getEnvVar("REGISTRY1_PASSWORD")
 	require.NoError(t, err)
+	ghcrUsername, err := getEnvVar("GHCR_USERNAME")
+	require.NoError(t, err)
+	ghcrPassword, err := getEnvVar("GHCR_PASSWORD")
+	require.NoError(t, err)
 	awsAvailabilityZone := getAwsAvailabilityZone(awsRegion)
 	namespace := "capability"
 	stage := "terratest"
 	name := fmt.Sprintf("e2e-%s", random.UniqueId())
-	instanceType := "m6id.4xlarge"
+	instanceType := "m6id.8xlarge"
 	teststructure.RunTestStage(t, "SETUP", func() {
 		keyPairName := fmt.Sprintf("%s-%s-%s", namespace, stage, name)
 		keyPair := aws.CreateAndImportEC2KeyPair(t, awsRegion, keyPairName)
@@ -112,21 +116,14 @@ func SetupTestPlatform(t *testing.T, platform *types.TestPlatform) { //nolint:fu
 		output, err = platform.RunSSHCommandAsSudo(fmt.Sprintf(`~/app/build/zarf tools registry login registry1.dso.mil -u %v -p %v`, registry1Username, registry1Password))
 		require.NoError(t, err, output)
 
-		// Destroy and Create cluster
+		// Log into ghcr.io
+		output, err = platform.RunSSHCommandAsSudo(fmt.Sprintf(`~/app/build/zarf tools registry login ghcr.io -u %v -p %v`, ghciUsername, ghciPassword))
+		require.NoError(t, err, output)
+
+		// Create cluster build and deploy
 		output, err = platform.RunSSHCommandAsSudo(`cd ~/app && make cluster/full`)
 		require.NoError(t, err, output)
 
-		// Build all needed packages
-		output, err = platform.RunSSHCommandAsSudo(`cd ~/app && make default-build`)
-		require.NoError(t, err, output)
-
-		// Copy zarf-config.toml to the build folder
-		output, err = platform.RunSSHCommandAsSudo(`cd ~/app && cp test/e2e/zarf-config.toml build/zarf-config.toml`)
-		require.NoError(t, err, output)
-
-		// Deploy gitlab capability
-		output, err = platform.RunSSHCommandAsSudo(`cd ~/app/build && make deploy-local`)
-		require.NoError(t, err, output)
 	})
 }
 
