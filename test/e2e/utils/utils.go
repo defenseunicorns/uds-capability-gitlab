@@ -40,7 +40,7 @@ func SetupTestPlatform(t *testing.T, platform *types.TestPlatform) { //nolint:fu
 	ghcrPassword, err := getEnvVar("GHCR_PASSWORD")
 	require.NoError(t, err)
 	awsAvailabilityZone := getAwsAvailabilityZone(awsRegion)
-	namespace := "capability"
+	namespace := "uds-capability"
 	stage := "terratest"
 	name := fmt.Sprintf("e2e-%s", random.UniqueId())
 	instanceType := "m6id.8xlarge"
