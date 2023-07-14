@@ -18,6 +18,9 @@ inputs:
   aws-secret-access-key:
     description: tmp
     required: true
+  aws-session-token:
+    description: tmp
+    required: true
   github-context:
     description: The GitHub Status Context to use when updating the status
     required: true
@@ -111,6 +114,7 @@ runs:
       env:
         AWS_ACCESS_KEY_ID: ${{ inputs.aws-access-key-id }}
         AWS_SECRET_ACCESS_KEY: ${{ inputs.aws-secret-access-key }}
+        AWS_SESSION_TOKEN: ${{ inputs.aws-session-token }}
         AWS_AVAILABILITY_ZONE: ${{ inputs.aws-availability-zone }}
         AWS_DEFAULT_REGION: us-east-2
         REGISTRY1_USERNAME: ${{ inputs.registry1-username }}

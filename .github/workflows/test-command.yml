@@ -89,6 +89,7 @@ jobs:
           # role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           region: ${{ vars.AWS_REGION }}
           github-context: "test / e2e (${{github.event_name}})"
           aws-availability-zone: ${{ vars.AWS_AVAILABILITY_ZONE }}
