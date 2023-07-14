@@ -103,7 +103,7 @@ runs:
     - name: "Run E2E tests"
       shell: bash -e -o pipefail {0}
       env:
-        AWS_AVAILABILITY_ZONE: ${{ inputs.aws_availability_zone }}
+        AWS_AVAILABILITY_ZONE: ${{ inputs.aws-availability-zone }}
         AWS_DEFAULT_REGION: us-east-2
         REGISTRY1_USERNAME: ${{ inputs.registry1-username }}
         REGISTRY1_PASSWORD: ${{ inputs.registry1-password }}
