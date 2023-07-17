@@ -46,6 +46,10 @@ help: ## Show a list of all targets
 	| sed -n 's/^\(.*\): \(.*\)##\(.*\)/\1:\3/p' \
 	| column -t -s ":"
 
+########################################################################
+# Utility Section
+########################################################################
+
 .PHONY: docker-save-build-harness
 docker-save-build-harness: ## Pulls the build harness docker image and saves it to a tarball
 	mkdir -p .cache/docker
@@ -69,9 +73,8 @@ fix-cache-permissions: ## Fixes the permissions on the pre-commit cache
 # Test Section
 ########################################################################
 
-# TODO: Figure out how to make it log to the console in real time so the user isn't sitting there wondering if it is working or not.
 .PHONY: test
-test: ## Run all automated tests. Requires access to an AWS account. Costs money. Requires env vars "REPO_URL", "GIT_BRANCH", "REGISTRY1_USERNAME", "REGISTRY1_PASSWORD", and standard AWS env vars.
+test: ## Run all automated tests. Requires access to an AWS account. Costs money. Requires env vars "REPO_URL", "GIT_BRANCH", "REGISTRY1_USERNAME", "REGISTRY1_PASSWORD", "GHCR_USERNAME", "GHCR_PASSWORD" and standard AWS env vars.
 	mkdir -p .cache/go
 	mkdir -p .cache/go-build
 	echo "Running automated tests. This will take several minutes. At times it does not log anything to the console. If you interrupt the test run you will need to log into AWS console and manually delete any orphaned infrastructure."
@@ -110,24 +113,33 @@ test-ssh: ## Run this if you set SKIP_TEARDOWN=1 and want to SSH into the still-
 # Cluster Section
 ########################################################################
 
-cluster/full: | cluster/destroy cluster/create build/all deploy/all
+cluster/full: ## This will destroy any existing cluster, create a new one, then build and deploy all
+	cluster/destroy
+	cluster/create
+	build/all
+	deploy/all
 
-cluster/create:
+cluster/create: ## Create a k3d cluster with metallb installed
 	k3d cluster create k3d-test-cluster --config utils/k3d/k3d-config.yaml -v /etc/machine-id:/etc/machine-id@server:*
 	k3d kubeconfig merge k3d-test-cluster -o /home/${USER}/cluster-kubeconfig.yaml
 	utils/metallb/install.sh
 	echo "Cluster is ready!"
 
-cluster/destroy:
+cluster/destroy: ## Destroy the k3d cluster
 	k3d cluster delete k3d-test-cluster
 
 ########################################################################
 # Build Section
 ########################################################################
 
-build/all: build build/zarf build/zarf-init.sha256 build/dubbd-pull-k3d.sha256 build/uds-capability-gitlab
+build/all: ##
+	build
+	build/zarf
+	build/zarf-init.sha256
+	build/dubbd-pull-k3d.sha256
+	build/uds-capability-gitlab
 
-build:
+build: ## Create build directory
 	mkdir -p build
 
 .PHONY: clean
@@ -150,19 +162,22 @@ build/zarf-init.sha256: | build ## Download the init package
 	echo "Creating shasum of the init package"
 	shasum -a 256 build/zarf-init-amd64-$(ZARF_VERSION).tar.zst | awk '{print $$1}' > build/zarf-init.sha256
 
-build/dubbd-pull-k3d.sha256: | build
+build/dubbd-pull-k3d.sha256: | build ## Download dubbd k3d oci package
 	./build/zarf package pull oci://ghcr.io/defenseunicorns/packages/dubbd-k3d:$(DUBBD_K3D_VERSION)-amd64 --oci-concurrency 9 --output-directory build
 	echo "Creating shasum of the dubbd-k3d package"
 	shasum -a 256 build/zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst | awk '{print $$1}' > build/dubbd-pull-k3d.sha256
 
-build/uds-capability-gitlab: | build
+build/uds-capability-gitlab: | build ## Build the gitlab capability
 	build/zarf package create . --skip-sbom --confirm --output-directory build
 
 ########################################################################
 # Deploy Section
 ########################################################################
 
-deploy/all: deploy/init deploy/dubbd-k3d deploy/uds-capability-gitlab
+deploy/all: ##
+	deploy/init
+	deploy/dubbd-k3d
+	deploy/uds-capability-gitlab
 
 deploy/init: ## Deploy the zarf init package
 	./build/zarf init --confirm --components=git-server
