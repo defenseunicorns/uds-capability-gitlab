@@ -113,11 +113,7 @@ test-ssh: ## Run this if you set SKIP_TEARDOWN=1 and want to SSH into the still-
 # Cluster Section
 ########################################################################
 
-cluster/full: ## This will destroy any existing cluster, create a new one, then build and deploy all
-	cluster/destroy
-	cluster/create
-	build/all
-	deploy/all
+cluster/full: cluster/destroy cluster/create build/all deploy/all ## This will destroy any existing cluster, create a new one, then build and deploy all
 
 cluster/create: ## Create a k3d cluster with metallb installed
 	k3d cluster create k3d-test-cluster --config utils/k3d/k3d-config.yaml -v /etc/machine-id:/etc/machine-id@server:*
@@ -132,12 +128,7 @@ cluster/destroy: ## Destroy the k3d cluster
 # Build Section
 ########################################################################
 
-build/all: ##
-	build
-	build/zarf
-	build/zarf-init.sha256
-	build/dubbd-pull-k3d.sha256
-	build/uds-capability-gitlab
+build/all: build build/zarf build/zarf-init.sha256 build/dubbd-pull-k3d.sha256 build/uds-capability-gitlab ##
 
 build: ## Create build directory
 	mkdir -p build
@@ -174,10 +165,7 @@ build/uds-capability-gitlab: | build ## Build the gitlab capability
 # Deploy Section
 ########################################################################
 
-deploy/all: ##
-	deploy/init
-	deploy/dubbd-k3d
-	deploy/uds-capability-gitlab
+deploy/all: deploy/init deploy/dubbd-k3d deploy/uds-capability-gitlab ##
 
 deploy/init: ## Deploy the zarf init package
 	./build/zarf init --confirm --components=git-server
