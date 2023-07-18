@@ -6,6 +6,12 @@ metadata:
   version: "0.0.2"
   architecture: amd64
 
+variables:
+  - name: GITLAB_DEPENDS_ON
+    default: "[]"
+  - name: GITLAB_CREATE_NAMESPACE
+    default: "true"
+
 components:
   - name: gitlab-values
     files:
@@ -27,7 +33,7 @@ components:
     charts:
       - name: flux-app
         version: 1.0.3
-        url: https://defenseunicorns.github.io/flux-app-helm-chart/
+        url: https://defenseunicorns.github.io/uds-support-charts/
         namespace: bigbang
         valuesFiles:
           - gitlab-flux-values.yaml
