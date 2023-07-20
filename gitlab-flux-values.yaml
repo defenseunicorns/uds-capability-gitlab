@@ -1,9 +1,13 @@
 application:
   name: gitlab
+  createNamespace: ###ZARF_VAR_GITLAB_CREATE_NAMESPACE###
   namespace: gitlab
   path: chart
   repository: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
-  # renovate: datasource=gitlab-tags depName=big-bang/product/packages/gitlab registryUrl=https://repo1.dso.mil
-  tag: 6.11.3-bb.0
+  ref:
+    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/gitlab registryUrl=https://repo1.dso.mil
+    tag: 6.11.3-bb.0
   values: |
     ###ZARF_VAR_GITLAB_VALUES###
+  dependsOn:
+    ###ZARF_VAR_GITLAB_DEPENDS_ON###
