@@ -3,8 +3,12 @@
   "forkProcessing": "enabled",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
+    ":dependencyDashboard",
+    ":semanticPrefixFixDepsChoreOthers",
     "config:base",
-    "group:all"
+    "group:all",
+    "replacements:all",
+    "workarounds:all"
   ],
   "timezone": "America/New_York",
   "rebaseStalePrs": true,
@@ -18,6 +22,9 @@
   "commitBodyTable": true,
   "ignorePaths": ["archive/**"],
   "suppressNotifications": ["prIgnoreNotification"],
+  "pre-commit": {
+    "enabled": true
+  },
   "helm-values": {
     "fileMatch": ["./.+\\.yaml$"]
   },
