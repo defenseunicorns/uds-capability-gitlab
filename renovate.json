@@ -6,7 +6,6 @@
     "config:base"
   ],
   "timezone": "America/New_York",
-  "repositories": ["defenseunicorns/uds-capability-gitlab"],
   "rebaseStalePrs": true,
   "schedule": ["after 7am and before 9am every weekday"],
   "dependencyDashboard": true,
