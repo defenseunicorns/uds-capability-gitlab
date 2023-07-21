@@ -6,7 +6,6 @@
     ":dependencyDashboard",
     ":semanticPrefixFixDepsChoreOthers",
     "config:base",
-    "group:all",
     "replacements:all",
     "workarounds:all"
   ],
