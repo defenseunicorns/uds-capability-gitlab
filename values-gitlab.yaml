@@ -1,6 +1,6 @@
 # hostname is deprecated and replaced with domain. But if hostname exists then use it.
-hostname: ###ZARF_VAR_DOMAIN###
-domain: ###ZARF_VAR_DOMAIN###
+hostname: bigbang.dev
+domain: bigbang.dev
 
 # Define variables to help with conditionals later
 
@@ -150,10 +150,10 @@ global:
     injection: enabled
 
   hosts:
-    domain: ###ZARF_VAR_DOMAIN###
+    domain: bigbang.dev
 
     gitlab:
-      name: gitlab.###ZARF_VAR_DOMAIN###
+      name: gitlab.bigbang.dev
 
     registry:
-      name: registry.###ZARF_VAR_DOMAIN###
+      name: registry.bigbang.dev
