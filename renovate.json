@@ -3,7 +3,8 @@
   "forkProcessing": "enabled",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    "group:all"
   ],
   "timezone": "America/New_York",
   "rebaseStalePrs": true,
