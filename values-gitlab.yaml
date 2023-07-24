@@ -33,24 +33,24 @@ redis:
   master:
     podAnnotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   slave:
     podAnnotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
 postgresql:
   master:
     podAnnotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   slave:
     podAnnotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
 registry:
   annotations:
   # renovate this
-    bigbang.dev/istioVersion: 1.17.2
+    bigbang.dev/istioVersion: 1.17.3
   metrics:
     serviceMonitor:
       endpointConfig:
@@ -65,13 +65,13 @@ gitlab:
   toolbox:
     annotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   gitlab-exporter:
     enabled: true
     metrics:
       annotations:
       # renovate this
-        bigbang.dev/istioVersion: 1.17.2
+        bigbang.dev/istioVersion: 1.17.3
       serviceMonitor:
         endpointConfig:
           scheme: https
@@ -102,19 +102,19 @@ gitlab:
               insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
     annotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   sidekiq:
     annotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   migrations:
     annotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   gitaly:
     annotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
     metrics:
       serviceMonitor:
         endpointConfig:
@@ -127,7 +127,7 @@ gitlab:
   gitlab-shell:
     annotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
     metrics:
       serviceMonitor:
         endpointConfig:
@@ -141,19 +141,19 @@ gitlab:
   praefect:
     annotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
   gitlab-grafana:
     annotations:
     # renovate this
-      bigbang.dev/istioVersion: 1.17.2
+      bigbang.dev/istioVersion: 1.17.3
 shared-secrets:
   annotations:
   # renovate this
-    bigbang.dev/istioVersion: 1.17.2
+    bigbang.dev/istioVersion: 1.17.3
 minio:
   podAnnotations:
   # renovate this
-    bigbang.dev/istioVersion: 1.17.2
+    bigbang.dev/istioVersion: 1.17.3
 
 global:
 
