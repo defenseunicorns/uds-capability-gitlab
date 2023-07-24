@@ -51,7 +51,7 @@
     {
       "fileMatch": [".*\\.ya?ml$"],
       "matchStrings": [
-        "# renovate: datasource=docker( versioning=(?<versioning>.*?))?\n\\s*-\\s+(?<depName>[^:]+):v?(?<currentValue>.*)"
+        "# renovate: datasource=docker( versioning=(?<versioning>.*?))?\n\\s*-\\s+(?<depName>[^:]+):(?<currentValue>.*)"
       ],
       "datasourceTemplate": "docker",
       "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^v?(?<version>.*)${{/if}}"
