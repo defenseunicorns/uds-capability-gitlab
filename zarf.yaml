@@ -43,6 +43,7 @@ components:
     images:
     # renovate: datasource=docker
       - "registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.50.0"
+    # renovate: datasource=docker
       - "registry1.dso.mil/ironbank/bitnami/redis:7.0.0-debian-10-r3"
     # renovate: datasource=docker
       - "registry1.dso.mil/ironbank/gitlab/gitlab/certificates:16.0.3"
