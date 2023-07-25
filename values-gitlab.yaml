@@ -32,7 +32,7 @@ redis:
       namespace: gitlab
   master:
     podAnnotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\\d+\\.\\d+\\.\\d+) registryUrl=https://repo1.dso.mil
+    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
   slave:
     podAnnotations:
