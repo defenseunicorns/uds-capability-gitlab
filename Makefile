@@ -5,6 +5,7 @@ ZARF_VERSION := v0.28.2
 
 # The version of the build harness container to use
 BUILD_HARNESS_REPO := ghcr.io/defenseunicorns/build-harness/build-harness
+# renovate: datasource=docker depName=ghcr.io/defenseunicorns/build-harness/build-harness
 BUILD_HARNESS_VERSION := 1.7.1
 
 DUBBD_K3D_VERSION := 0.5.0

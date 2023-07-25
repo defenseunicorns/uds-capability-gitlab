@@ -35,7 +35,7 @@ components:
       - name: flux-app
         url: https://defenseunicorns.github.io/uds-support-charts/
         version: 1.0.3
-        namespace: bigbang
+        namespace: gitlab
         valuesFiles:
           - gitlab-flux-values.yaml
     repos:
