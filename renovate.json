@@ -90,6 +90,10 @@
       "matchDepTypes": ["module"],
       "matchDatasources": ["github-tags", "git-tags"],
       "versioning": "loose"
+    },
+    {
+      "matchPackageNames": ["big-bang/product/packages/gitlab"],
+      "allowedVersions": "!/^v.*$/"
     }
   ]
 }
