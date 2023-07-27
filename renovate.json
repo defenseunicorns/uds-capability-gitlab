@@ -100,6 +100,15 @@
       "datasourceTemplate": "github-tags"
     },
     {
+      "fileMatch": [".*\\zarf.ya?ml$"],
+      "matchStrings": [
+        "(?:\\G[\r\n]*|images:[\r\n]+)\\K\\s*-\\s+(?<depName>[^:]+):(?<currentValue>.*)"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
+      "datasourceTemplate": "docker",
+      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
+    },
+    {
       "fileMatch": ["^Makefile$"],
       "matchStrings": [
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?( repository=(?<registryUrl>.*?))?\\s.*?=\\s*['\"]?(?<currentValue>.*?)['\"]?\\s"
