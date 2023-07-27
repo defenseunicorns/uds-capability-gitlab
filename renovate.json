@@ -84,6 +84,22 @@
       "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
     },
     {
+      "fileMatch": [".*\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: zarf-uri datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?uri: ['\"]https:\\/\\/github.com\\/defenseunicorns\\/zarf\\/releases\\/download\\/(?<currentValue>.*)\\/zarf_.*_Linux_amd64['\"]"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "fileMatch": [".*\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: zarf-uri datasource=github-tags depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?uri: ['\"]https:\\/\\/github.com\\/defenseunicorns\\/zarf\\/releases\\/download\\/.*\\/zarf_(?<currentValue>.*)_Linux_amd64['\"]"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
+      "datasourceTemplate": "github-tags"
+    },
+    {
       "fileMatch": ["^Makefile$"],
       "matchStrings": [
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?( repository=(?<registryUrl>.*?))?\\s.*?=\\s*['\"]?(?<currentValue>.*?)['\"]?\\s"
