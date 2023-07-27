@@ -32,24 +32,19 @@ redis:
       namespace: gitlab
   master:
     podAnnotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
   slave:
     podAnnotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
 postgresql:
   master:
     podAnnotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
   slave:
     podAnnotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
 registry:
   annotations:
-  # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
     bigbang.dev/istioVersion: 1.17.3
   metrics:
     serviceMonitor:
@@ -64,13 +59,11 @@ registry:
 gitlab:
   toolbox:
     annotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
   gitlab-exporter:
     enabled: true
     metrics:
       annotations:
-      # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
         bigbang.dev/istioVersion: 1.17.3
       serviceMonitor:
         endpointConfig:
@@ -101,19 +94,15 @@ gitlab:
               keyFile: /etc/prom-certs/key.pem
               insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
     annotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
   sidekiq:
     annotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
   migrations:
     annotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
   gitaly:
     annotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
     metrics:
       serviceMonitor:
@@ -126,7 +115,6 @@ gitlab:
             insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
   gitlab-shell:
     annotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
     metrics:
       serviceMonitor:
@@ -140,19 +128,15 @@ gitlab:
 
   praefect:
     annotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
   gitlab-grafana:
     annotations:
-    # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
       bigbang.dev/istioVersion: 1.17.3
 shared-secrets:
   annotations:
-  # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
     bigbang.dev/istioVersion: 1.17.3
 minio:
   podAnnotations:
-  # renovate: datasource=gitlab-tags depName=big-bang/product/packages/istio-controlplane versioning=loose extractVersion=^(?<version>\d+\.\d+\.\d+) registryUrl=https://repo1.dso.mil
     bigbang.dev/istioVersion: 1.17.3
 
 global:
