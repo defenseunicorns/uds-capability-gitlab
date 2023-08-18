@@ -6,6 +6,8 @@ build/
 *.tar.zst
 test/tf/public-ec2-instance/.tool-versions
 zarf-sbom
+values-*
+overlay-values-*
 
 # Terraform
 test/tf/public-ec2-instance/.test-data

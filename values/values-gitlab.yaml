@@ -75,6 +75,8 @@ redis:
   install: false
 
 registry:
+  annotations:
+    bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
   storage:
     secret: gitlab-object-store
     key: registry
@@ -91,6 +93,8 @@ registry:
 
 gitlab:
   toolbox:
+    annotations:
+      bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
     backups:
       objectStorage:
         config:
@@ -99,6 +103,8 @@ gitlab:
   gitlab-exporter:
     enabled: true
     metrics:
+      annotations:
+        bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
       serviceMonitor:
         endpointConfig:
           scheme: https
@@ -108,6 +114,8 @@ gitlab:
             keyFile: /etc/prom-certs/key.pem
             insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
   webservice:
+    annotations:
+      bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
     metrics:
       serviceMonitor:
         endpointConfig:
@@ -127,7 +135,15 @@ gitlab:
               certFile: /etc/prom-certs/cert-chain.pem
               keyFile: /etc/prom-certs/key.pem
               insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
+  sidekiq:
+    annotations:
+      bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
+  migrations:
+    annotations:
+      bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
   gitaly:
+    annotations:
+      bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
     metrics:
       serviceMonitor:
         endpointConfig:
@@ -138,6 +154,8 @@ gitlab:
             keyFile: /etc/prom-certs/key.pem
             insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
   gitlab-shell:
+    annotations:
+      bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
     metrics:
       serviceMonitor:
         endpointConfig:

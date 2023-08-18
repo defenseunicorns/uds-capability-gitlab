@@ -29,6 +29,13 @@ variables:
     default: ""
 
 components:
+  - name: istio-version
+    required: true
+    actions:
+      onDeploy:
+        before:
+          - cmd: kubectl get deployment -n monitoring monitoring-monitoring-kube-operator -o=jsonpath='{.spec.template.metadata.annotations.bigbang\.dev/istioVersion}'
+            setVariable: ISTIO_VERSION
   - name: base-values
     required: true
     files:
