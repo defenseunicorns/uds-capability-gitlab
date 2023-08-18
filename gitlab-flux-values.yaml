@@ -9,5 +9,7 @@ application:
     tag: 7.1.2-bb.0
   values: |
     ###ZARF_VAR_GITLAB_VALUES###
+  overlayValues: |
+    ###ZARF_VAR_GITLAB_OVERLAY_VALUES###
   dependsOn:
     ###ZARF_VAR_GITLAB_DEPENDS_ON###

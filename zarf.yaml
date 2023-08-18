@@ -3,38 +3,46 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.0.5"
+  version: "0.0.6"
   architecture: amd64
 
 variables:
   - name: GITLAB_DEPENDS_ON
     default: "[]"
   - name: GITLAB_CREATE_NAMESPACE
-    default: "true"
+    default: "false"
+  - name: GITLAB_DB
+    default: "gitlabdb"
+  - name: GITLAB_VALUES
+    default: values-gitlab.yaml
+    prompt: false
+    type: file
+    autoIndent: true
+  - name: GITLAB_OVERLAY_VALUES
+    default: overlay-values-gitlab.yaml
+    prompt: false
+    type: file
+    autoIndent: true
 
 components:
-  - name: gitlab-values
+  - name: base-values
+    required: true
     files:
-      - source: values-gitlab.yaml
+      - source: values/values-gitlab.yaml
         target: values-gitlab.yaml
+  - name: overlay-values
+    required: true
+    files:
+      - source: values/overlay-values-gitlab.yaml
+        target: overlay-values-gitlab.yaml
   - name: gitlab
     required: true
     description: "Deploy gitlab via flux"
-    actions:
-      onDeploy:
-        before:
-          - cmd: cat values-gitlab.yaml
-            description: Read gitlab values into variable.
-            mute: true
-            setVariables:
-            - name: GITLAB_VALUES
-              autoIndent: true
-              sensitive: true
     charts:
     # renovate: datasource=helm
       - name: flux-app
         url: https://defenseunicorns.github.io/uds-support-charts/
-        version: 1.0.5
+        version: 1.0.6
         namespace: gitlab
         valuesFiles:
           - gitlab-flux-values.yaml
