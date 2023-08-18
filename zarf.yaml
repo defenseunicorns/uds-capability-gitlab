@@ -11,18 +11,6 @@ variables:
     default: "[]"
   - name: GITLAB_CREATE_NAMESPACE
     default: "false"
-  - name: GITLAB_DB
-    default: "gitlabdb"
-  - name: GITLAB_VALUES
-    default: values-gitlab.yaml
-    prompt: false
-    type: file
-    autoIndent: true
-  - name: GITLAB_OVERLAY_VALUES
-    default: overlay-values-gitlab.yaml
-    prompt: false
-    type: file
-    autoIndent: true
   - name: DOMAIN
     default: "bigbang.dev"
   - name: BUCKET_SUFFIX

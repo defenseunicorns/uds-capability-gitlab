@@ -17,7 +17,7 @@ application:
       psql:
         host: gitlab-postgres
         port: 5432
-        database: ###ZARF_VAR_GITLAB_DB###
+        database: gitlabdb
         username: gitlab
         password:
           useSecret: true
