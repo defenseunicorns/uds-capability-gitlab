@@ -11,7 +11,7 @@ components:
     required: true
     charts:
       - name: namespaces
-        version: 1.0.6
+        version: 1.0.0
         namespace: default
         url: https://defenseunicorns.github.io/uds-support-charts/
         valuesFiles:
