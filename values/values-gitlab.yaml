@@ -68,7 +68,6 @@ global:
         secret: gitlab-object-store
         key: connection
 
-
 postgresql:
   install: false
 redis:
@@ -89,7 +88,6 @@ registry:
           certFile: /etc/prom-certs/cert-chain.pem
           keyFile: /etc/prom-certs/key.pem
           insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
-
 
 gitlab:
   toolbox:
