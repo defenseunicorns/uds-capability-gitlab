@@ -23,6 +23,10 @@ variables:
     prompt: false
     type: file
     autoIndent: true
+  - name: DOMAIN
+    default: "bigbang.dev"
+  - name: BUCKET_SUFFIX
+    default: ""
 
 components:
   - name: base-values

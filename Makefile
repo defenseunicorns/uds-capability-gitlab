@@ -189,10 +189,10 @@ deploy/dubbd-k3d: ## Deploy the k3d flavor of DUBBD
 	cd ./build && ./zarf package deploy zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst --confirm
 
 deploy/test-pkg-deps: ## Deploy the package dependencies needed for testing the gitlab capability
-	cd ./build && ./zarf package deploy zarf-package-swf-namespaces-* --confirm
+	cd ./build && ./zarf package deploy zarf-package-gitlab-namespaces-* --confirm
 	cd ./build && ./zarf package deploy zarf-package-gitlab-postgres-* --confirm
 	cd ./build && ./zarf package deploy zarf-package-gitlab-redis-* --confirm
 	cd ./build && ./zarf package deploy zarf-package-gitlab-minio-* --confirm
 
 deploy/uds-capability-gitlab: ## Deploy the gilab capability
-	cd ./build && ./zarf package deploy zarf-package-gitlab-*.tar.zst --confirm
+	cd ./build && ./zarf package deploy zarf-package-gitlab-amd*.tar.zst --confirm
