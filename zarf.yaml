@@ -27,6 +27,8 @@ variables:
     default: "bigbang.dev"
   - name: BUCKET_SUFFIX
     default: ""
+  - name: ISTIO_VERSION
+    default: "unset"
 
 components:
   - name: istio-version
@@ -36,16 +38,6 @@ components:
         before:
           - cmd: kubectl get deployment -n monitoring monitoring-monitoring-kube-operator -o=jsonpath='{.spec.template.metadata.annotations.bigbang\.dev/istioVersion}'
             setVariable: ISTIO_VERSION
-  - name: base-values
-    required: true
-    files:
-      - source: values/values-gitlab.yaml
-        target: values-gitlab.yaml
-  - name: overlay-values
-    required: true
-    files:
-      - source: values/overlay-values-gitlab.yaml
-        target: overlay-values-gitlab.yaml
   - name: gitlab
     required: true
     description: "Deploy gitlab via flux"
@@ -53,7 +45,7 @@ components:
     # renovate: datasource=helm
       - name: flux-app
         url: https://defenseunicorns.github.io/uds-support-charts/
-        version: 1.0.6
+        version: 1.0.7
         namespace: gitlab
         valuesFiles:
           - gitlab-flux-values.yaml
