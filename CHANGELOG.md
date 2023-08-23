@@ -6,7 +6,6 @@ All notable changes to this project will be documented in this file.
 PRE RELEASE
 
 ### Added
-- PRE RELEASE
 - Initial CHANGELOG.md
 - CONTRIBUTING.md
 - CODEOWNERS
