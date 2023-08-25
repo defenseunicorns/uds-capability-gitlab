@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.REGISTRY1_PASSWORD }}
 
       ####
-      # Building and publishing dependency packages to use in a dev UDS Bundle
+      # Build and publish dependency packages to use in a dev UDS Bundle
       ####
       - name: Build dev-dependency gitlab-namespace package
         run: cd utils/pkg-deps/namespaces && zarf package create --confirm --no-progress
