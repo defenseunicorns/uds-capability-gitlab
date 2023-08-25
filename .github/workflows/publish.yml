@@ -28,10 +28,10 @@ jobs:
         uses: supplypike/setup-bin@v3
         with:
           # renovate: zarf-uri datasource=github-tags depName=defenseunicorns/zarf
-          uri: 'https://github.com/defenseunicorns/zarf/releases/download/v0.28.4/zarf_v0.28.4_Linux_amd64'
+          uri: 'https://github.com/defenseunicorns/zarf/releases/download/v0.29.0/zarf_v0.28.4_Linux_amd64'
           name: 'zarf'
           # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
-          version: 'v0.28.4'
+          version: 'v0.29.0'
 
       - name: Login to GHCR
         uses: docker/login-action@v2
@@ -50,8 +50,32 @@ jobs:
       - name: Build gitlab package
         run: zarf package create --confirm --no-progress
 
+      - name: Build dev-dependency gitlab-namespace package
+        run: cd utils/pkg-deps/namespaces && zarf package create --confirm --no-progress
+
+      - name: Build dev-dependency gitlab-postgres package
+        run: cd utils/pkg-deps/gitlab/postgres && zarf package create --confirm --no-progress
+
+      - name: Build dev-dependency gitlab-redis package
+        run: cd utils/pkg-deps/gitlab/redis && zarf package create --confirm --no-progress
+
+      - name: Build dev-dependency gitlab-minio package
+        run: cd utils/pkg-deps/gitlab/minio && zarf package create --confirm --no-progress
+
+      - name: Publish dev-dependency gitlab-namespace package
+        run: cd utils/pkg-deps/namespaces && zarf package publish zarf-package-gitlab-namespaces-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+
+      - name: Publish dev-dependency gitlab-postgres package
+        run: cd utils/pkg-deps/gitlab/postgres && zarf package publish zarf-package-gitlab-postgres-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+
+      - name: Publish dev-dependency gitlab-redis package
+        run: cd utils/pkg-deps/gitlab/redis && zarf package publish zarf-package-gitlab-redis-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+
+      - name: Publish dev-dependency gitlab-minio package
+        run: cd utils/pkg-deps/gitlab/minio && zarf package publish zarf-package-gitlab-minio-amd64*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+
       - name: Publish gitlab package
         run: zarf package publish zarf-package-gitlab-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability --no-progress
-
+      
       - name: Publish gitlab skeleton
         run: zarf package publish . oci://ghcr.io/defenseunicorns/uds-capability --no-progress
