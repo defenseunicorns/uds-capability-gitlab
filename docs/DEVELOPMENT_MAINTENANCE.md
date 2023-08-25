@@ -9,7 +9,7 @@ The [gitlab-flux-values.yaml](../gitlab-flux-values.yaml) file contains values u
 To upgrade
 1) Point `application.ref.tag` to the updated version of the chart.
 1) Update any base values if necessary.
-1) Update the `gitlab` component in the [zarf.yaml](../zarf.yaml) file to pull in the correct images needed for the update version of the chart.
+1) Update the `gitlab` component in the [zarf.yaml](../zarf.yaml) file to pull in the correct images needed for the updated version of the chart.
 
 ## How to test this capability
 
