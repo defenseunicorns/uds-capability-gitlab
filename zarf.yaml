@@ -21,6 +21,14 @@ variables:
     default: "gitlab-redis" 
   - name: GITLAB_REDIS_SCHEME
     default: "redis"
+  - name: KEYCLOAK_DOMAIN
+    default: "keycloak.bigbang.dev"
+  - name: KEYCLOAK_REALM
+    default: "baby-yoda"
+  - name: KEYCLOAK_CLIENT
+    default: "dev_00eb8904-5b88-4c68-ad67-cec0d2e07aa6_gitlab"
+  - name: KEYCLOAK_CLIENT_SECRET
+    default: ""
 
 components:
   - name: istio-version
@@ -30,6 +38,13 @@ components:
         before:
           - cmd: kubectl get deployment -n monitoring monitoring-monitoring-kube-operator -o=jsonpath='{.spec.template.metadata.annotations.bigbang\.dev/istioVersion}'
             setVariable: ISTIO_VERSION
+  - name: gitlab-sso-secret
+    required: false
+    description: "Gitlab SSO Secret"
+    manifests:
+      - name: sso 
+        files:
+          - sso/secret.yaml
   - name: gitlab
     required: true
     description: "Deploy gitlab via flux"

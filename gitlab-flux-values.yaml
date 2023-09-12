@@ -80,7 +80,14 @@ application:
           connection:
             secret: gitlab-object-store
             key: connection
+        omniauth:
+          enabled: true
+          allowSingleSignOn: ['openid_connect']
+          blockAutoCreatedUsers: false
 
+          providers: 
+            - secret: gitlab-sso-provider
+              key: gitlab-sso.json
     postgresql:
       install: false
     redis:
