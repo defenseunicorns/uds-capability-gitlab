@@ -80,6 +80,20 @@ application:
           connection:
             secret: gitlab-object-store
             key: connection
+        omniauth:
+          enabled: ###ZARF_VAR_IDAM_ENABLED###
+          allowSingleSignOn: ###ZARF_VAR_IDAM_PROVIDER###
+          blockAutoCreatedUsers: ###ZARF_VAR_IDAM_BLOCK_AUTO_USERS###
+          autoLinkUser: ###ZARF_VAR_IDAM_AUTO_LINK_USER###
+          autoSignInWithProvider: ###ZARF_VAR_IDAM_AUTO_SIGNIN###
+          externalProviders: ###ZARF_VAR_IDAM_EXTERNAL_PROVIDERS###
+          syncProfileAttributes: ###ZARF_VAR_IDAM_SYNC_ATTRIBUTES###
+          syncProfileFromProvider: ###ZARF_VAR_IDAM_SYNC_PROVIDERS###
+
+          providers: 
+            - secret: gitlab-sso-provider
+              key: gitlab-sso.json
+            ###ZARF_VAR_IDAM_EXTRA_PROVIDERS###
 
     postgresql:
       install: false
