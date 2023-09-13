@@ -148,6 +148,10 @@ application:
                 certFile: /etc/prom-certs/cert-chain.pem
                 keyFile: /etc/prom-certs/key.pem
                 insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target pod certificate
+        resources:
+          limits:
+            cpu: 600m
+            memory: 4G
         workhorse:
           metrics:
             serviceMonitor:
@@ -164,6 +168,13 @@ application:
       migrations:
         annotations:
           bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
+        resources:
+          limits:
+            cpu: 500m
+            memory: 4G
+          requests:
+            cpu: 500m
+            memory: 1G
       gitaly:
         annotations:
           bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
