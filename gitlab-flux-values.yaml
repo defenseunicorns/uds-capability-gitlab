@@ -82,7 +82,7 @@ application:
             key: connection
         omniauth:
           enabled: ###ZARF_VAR_IDAM_ENABLED###
-          allowSingleSignOn: ###ZARF_VAR_IDAM_PROVIDER###
+          allowSingleSignOn: ###ZARF_VAR_IDAM_ALLOWED_SSOS###
           blockAutoCreatedUsers: ###ZARF_VAR_IDAM_BLOCK_AUTO_USERS###
           autoLinkUser: ###ZARF_VAR_IDAM_AUTO_LINK_USER###
           autoSignInWithProvider: ###ZARF_VAR_IDAM_AUTO_SIGNIN###
@@ -90,10 +90,8 @@ application:
           syncProfileAttributes: ###ZARF_VAR_IDAM_SYNC_ATTRIBUTES###
           syncProfileFromProvider: ###ZARF_VAR_IDAM_SYNC_PROVIDERS###
 
-          providers: 
-            - secret: gitlab-sso-provider
-              key: gitlab-sso.json
-            ###ZARF_VAR_IDAM_EXTRA_PROVIDERS###
+          providers:
+            ###ZARF_VAR_IDAM_PROVIDERS###
 
     postgresql:
       install: false

@@ -23,7 +23,7 @@ variables:
     default: "redis"
   - name: IDAM_ENABLED
     default: "false"
-  - name: IDAM_PROVIDER
+  - name: IDAM_ALLOWED_SSOS
     default: "[]"
   - name: IDAM_BLOCK_AUTO_USERS
     default: "false"
@@ -33,8 +33,8 @@ variables:
     default: ""
   - name: IDAM_EXTERNAL_PROVIDERS
     default: "[]"
-  - name: IDAM_EXTRA_PROVIDERS
-    default: ""
+  - name: IDAM_PROVIDERS
+    default: "[]"
     autoIndent: true
   - name: IDAM_SYNC_ATTRIBUTES
     default: "[]"
