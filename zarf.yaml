@@ -81,7 +81,6 @@ components:
       - registry1.dso.mil/ironbank/opensource/postgres/postgresql:14.8
       - registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.8
       - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:16.3.0
-      - registry1.dso.mil/bigbang-ci/gitlab-tester:0.0.4
     actions:
       onDeploy:
         after:
