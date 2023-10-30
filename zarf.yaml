@@ -40,6 +40,8 @@ variables:
     default: "[]"
   - name: GITLAB_IDAM_SYNC_PROVIDERS
     default: "[]"
+  - name: GITAB_DB_USERNAME
+    default: "gitlab"
 
 components:
   - name: istio-version
