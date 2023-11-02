@@ -2,7 +2,7 @@ apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
   name: gitlab-redis-registry-exception
-  namespace: gitlab-redis
+  namespace: kyverno
 spec:
   exceptions:
   - policyName: restrict-image-registries
