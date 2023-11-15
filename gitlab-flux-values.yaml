@@ -217,6 +217,15 @@ application:
       registry:
         gateways:
         - istio-system/tenant
+      pages:
+        enabled: true
+        gateways:
+        - istio-system/tenant
+        customDomains:
+          enabled: false
+        hosts:
+        - '*.pages.###ZARF_VAR_DOMAIN###'
+
 
     monitoring:
       enabled: true
