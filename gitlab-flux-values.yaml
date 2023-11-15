@@ -97,7 +97,7 @@ application:
             ###ZARF_VAR_GITLAB_IDAM_PROVIDERS###
 
         initialDefaults:
-          signupEnabled: ###ZARF_VAR_SIGNUP_ENABLED###
+          signupEnabled: ###ZARF_VAR_GITLAB_SIGNUP_ENABLED###
 
     postgresql:
       install: false

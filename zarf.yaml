@@ -46,7 +46,7 @@ variables:
     default: "gitlab"
   - name: GITLAB_PAGES_ENABLED
     default: "true"
-  - name: SIGNUP_ENABLED
+  - name: GITLAB_SIGNUP_ENABLED
     default: "false"
 
 components:
