@@ -217,10 +217,13 @@ application:
         - istio-system/tenant
       pages:
         enabled: true
+        port: 8090
         ingressLabels:
           app: tenant-ingressgateway
         gateways:
         - istio-system/tenant
+        customDomains:
+          enabled: false
         hosts:
         - '*.pages.###ZARF_VAR_DOMAIN###'
 
