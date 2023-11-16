@@ -41,10 +41,8 @@ application:
         injection: enabled
       hosts:
         domain: ###ZARF_VAR_DOMAIN###
-
         gitlab:
           name: gitlab.###ZARF_VAR_DOMAIN###
-
         registry:
           name: registry.###ZARF_VAR_DOMAIN###
         pages:
@@ -219,10 +217,10 @@ application:
         - istio-system/tenant
       pages:
         enabled: true
+        ingressLabels:
+          app: tenant-ingressgateway
         gateways:
         - istio-system/tenant
-        customDomains:
-          enabled: false
         hosts:
         - '*.pages.###ZARF_VAR_DOMAIN###'
 
