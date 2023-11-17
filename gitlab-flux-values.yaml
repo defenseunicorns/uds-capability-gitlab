@@ -48,14 +48,13 @@ application:
         pages:
           name: pages.###ZARF_VAR_DOMAIN###
       registry:
+        bucket: uds-gitlab-registry###ZARF_VAR_BUCKET_SUFFIX###
         relativeurls: true
       pages:
         enabled: ###ZARF_VAR_GITLAB_PAGES_ENABLED###
         objectStore:
           bucket: uds-gitlab-pages###ZARF_VAR_BUCKET_SUFFIX###
       appConfig:
-        registry:
-          bucket: uds-gitlab-registry###ZARF_VAR_BUCKET_SUFFIX###
         lfs:
           bucket: uds-gitlab-lfs###ZARF_VAR_BUCKET_SUFFIX###
         artifacts:
