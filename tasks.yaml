@@ -32,6 +32,7 @@ tasks:
     actions:
       - task: build
       - task: build-zarf
+      - task: build-zarf-init
       - task: build-metallb
       - task: build-test-pkg-deps
       - task: build-uds-capability-gitlab
@@ -59,6 +60,26 @@ tasks:
       - cmd: uname -s
         setVariables:
           - name: PLATFORM
+            sensitive: false
+
+########################################################################
+# Set Network Range
+########################################################################
+  - name: set-network-range
+    actions:
+      - cmd: |
+          NETWORK_BASE=$(kubectl get nodes -o=jsonpath='{.items[0].metadata.annotations.k3s\.io/internal-ip}' | cut -d '.' --fields '1 2 3')
+          NETWORK_RANGE_START="${NETWORK_BASE}.200"
+          echo $NETWORK_RANGE_START
+        setVariables:
+          - name: NETWORK_RANGE_START
+            sensitive: false
+      - cmd: |
+          NETWORK_BASE=$(kubectl get nodes -o=jsonpath='{.items[0].metadata.annotations.k3s\.io/internal-ip}' | cut -d '.' --fields '1 2 3')
+          NETWORK_RANGE_END="${NETWORK_BASE}.210"
+          echo $NETWORK_RANGE_END
+        setVariables:
+          - name: NETWORK_RANGE_END
             sensitive: false
 
 ########################################################################
@@ -90,6 +111,9 @@ tasks:
   - name: build
     actions:
       - cmd: mkdir -p build
+      - cmd: |
+          echo "no_progress: true" > zarf-config.yaml
+        dir: build
 
   - name: clean
     actions:
@@ -103,6 +127,14 @@ tasks:
           echo "Downloading zarf"
           curl -sL https://github.com/defenseunicorns/zarf/releases/download/${ZARF_VERSION}/zarf_${ZARF_VERSION}_${PLATFORM}_${ARCH} -o ./zarf
           chmod +x ./zarf
+        dir: build
+
+  - name: build-zarf-init
+    actions:
+      - cmd: |
+          if [ -f build/zarf-init-amd64-${ZARF_VERSION}.tar.zst ] ; then exit 0; fi
+          echo "Downloading zarf-init-amd64-${ZARF_VERSION}.tar.zst"
+          curl -sL https://github.com/defenseunicorns/zarf/releases/download/${ZARF_VERSION}/zarf-init-amd64-${ZARF_VERSION}.tar.zst -o ./zarf-init-amd64-${ZARF_VERSION}.tar.zst
         dir: build
 
   - name: build-metallb
@@ -136,12 +168,13 @@ tasks:
 
   - name: deploy-metallb
     actions:
-      - cmd: ./zarf package deploy zarf-package-metallb-amd64-${METALLB_VERSION}.tar.zst
+      - task: set-network-range
+      - cmd: ./zarf package deploy zarf-package-metallb-amd64-0.0.5.tar.zst --set IP_ADDRESS_POOL=${NETWORK_RANGE_START}-${NETWORK_RANGE_END} --confirm
         dir: build
 
   - name: deploy-dubbd-k3d
     actions:
-      - cmd: ./zarf package deploy zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst --confirm
+      - cmd: ./zarf package deploy zarf-package-dubbd-k3d-amd64-${DUBBD_K3D_VERSION}.tar.zst --confirm
         dir: build
 
   - name: deploy-test-pkg-deps
