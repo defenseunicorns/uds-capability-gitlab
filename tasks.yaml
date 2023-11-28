@@ -38,10 +38,26 @@ tasks:
       - task: build-test-pkg-deps
       - task: build-uds-capability-gitlab
 
+  - name: ci-build-all
+    actions:
+      - task: build
+      - task: build-zarf
+      - task: build-zarf-init
+      - task: build-dubbd-k3d
+      - task: build-test-pkg-deps
+      - task: build-uds-capability-gitlab
+
   - name: deploy-all
     actions:
       - task: deploy-init
       - task: deploy-metallb
+      - task: deploy-dubbd-k3d
+      - task: deploy-test-pkg-deps
+      - task: deploy-uds-capability-gitlab
+
+  - name: ci-deploy-all
+    actions:
+      - task: deploy-init
       - task: deploy-dubbd-k3d
       - task: deploy-test-pkg-deps
       - task: deploy-uds-capability-gitlab
