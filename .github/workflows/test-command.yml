@@ -103,9 +103,10 @@ jobs:
           brew tap defenseunicorns/tap
           brew install uds
 
-      - name: Install sslscan via homebrew
+      - name: Install sslscan via apt
         run: |
-          apt install sslscan -y
+          sudo apt update
+          sudo apt install sslscan -y
 
       - name: Build gitlab and all dependencies
         run: |
