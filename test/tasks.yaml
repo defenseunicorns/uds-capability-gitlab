@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/uds-cli/main/tasks.schema.json
+tasks:
+  - name: test-all
+    actions:
+      - task: cluster-connect
+      - task: tls-disabled
+      - task: gitlab-available
+  - name: cluster-connect
+    actions:
+      - cmd: kubectl get nodes
+
+  - name: tls-disabled
+    actions:
+      - cmd: sslscan gitlab.bigbang.dev | grep "TLSv1.1" | grep "disabled"
+
+  - name: gitlab-available
+    actions:
+      - cmd: timeout 1200 bash -c "while ! curl -L -s --fail --show-error https://gitlab.bigbang.dev/-/health > /dev/null; do sleep 5; done"
