@@ -111,10 +111,6 @@ jobs:
         run: |
           uds run ci-build-all
 
-      - name: Add zarf to bin on path
-        run: |
-          sudo cp build/zarf /usr/local/bin/zarf
-
       - name: Create k3s cluster in AWS
         id: create-cluster
         uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
