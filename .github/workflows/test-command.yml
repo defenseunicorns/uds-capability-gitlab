@@ -103,7 +103,7 @@ jobs:
           brew tap defenseunicorns/tap
           brew install uds
 
-      - name: Build bundle and all dependencies
+      - name: Build gitlab and all dependencies
         run: |
           uds run build-all
 
@@ -126,11 +126,7 @@ jobs:
         run: |
           zarf tools kubectl apply -f test/lb-annotation-aws/pepr-module-lb-annotate.yaml
 
-      - name: Install Pepr flux resources module
-        run: |
-          zarf tools kubectl apply -f test/flux-resources-bump/pepr-module-flux-resources.yaml
-
-      - name: Deploy bundle
+      - name: Deploy gitlab and all dependencies
         run: |
           uds run deploy-all
 
