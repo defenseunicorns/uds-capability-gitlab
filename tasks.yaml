@@ -169,7 +169,7 @@ tasks:
   - name: deploy-metallb
     actions:
       - task: set-network-range
-      - cmd: ./zarf package deploy zarf-package-metallb-amd64-0.0.5.tar.zst --set IP_ADDRESS_POOL=${NETWORK_RANGE_START}-${NETWORK_RANGE_END} --confirm
+      - cmd: ./zarf package deploy zarf-package-metallb-amd64-${METALLB_VERSION}.tar.zst --set IP_ADDRESS_POOL=${NETWORK_RANGE_START}-${NETWORK_RANGE_END} --confirm
         dir: build
 
   - name: deploy-dubbd-k3d
