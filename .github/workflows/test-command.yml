@@ -77,20 +77,95 @@ jobs:
     if: needs.parse.outputs.run-e2e == 'true'
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PAT }}
-          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.client_payload.pull_request.head.ref || github.ref_name }}
-      - name: Run E2E Tests
-        uses: ./.github/actions/e2e
+          fetch-depth: 0
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
         with:
-          token: ${{ secrets.PAT }}
-          role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
-          region: ${{ vars.AWS_REGION }}
-          github-context: "test / e2e (${{github.event_name}})"
-          aws-availability-zone: ${{ vars.AWS_AVAILABILITY_ZONE }}
-          ghcr-username: ${{ github.actor }}
-          ghcr-password: ${{ secrets.GITHUB_TOKEN }}
-          registry1-username: ${{ secrets.REGISTRY1_USERNAME }}
-          registry1-password: ${{ secrets.REGISTRY1_PASSWORD }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login to registry1
+        uses: docker/login-action@v2
+        with:
+          registry: registry1.dso.mil
+          username: ${{ secrets.REGISTRY1_USERNAME }}
+          password: ${{ secrets.REGISTRY1_PASSWORD }}
+
+      - name: Install homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install uds-cli via homebrew
+        run: |
+          brew tap defenseunicorns/tap
+          brew install uds
+
+      - name: Build bundle and all dependencies
+        run: |
+          uds run build-all
+
+      - name: Add zarf to bin on path
+        run: |
+          sudo cp build/zarf /usr/local/bin/zarf
+
+      - name: Create k3s cluster in AWS
+        id: create-cluster
+        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
+        with:
+          cluster-action: create
+          aws-assume-role: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
+          aws-region: us-west-2
+          instance-size: "m7a.8xlarge"
+          ami-prefix: "rc-uds-ci-k3d"
+          k3s: "true"
+
+      - name: Install Pepr nlb lb module
+        run: |
+          zarf tools kubectl apply -f test/lb-annotation-aws/pepr-module-lb-annotate.yaml
+
+      - name: Install Pepr flux resources module
+        run: |
+          zarf tools kubectl apply -f test/flux-resources-bump/pepr-module-flux-resources.yaml
+
+      - name: Deploy bundle
+        run: |
+          uds run deploy-all
+
+      - name: Setup LB hostnames
+        run: |
+          utils/metallb/dns.sh
+          sudo utils/metallb/hosts-write.sh
+
+      - name: Run tests
+        run: |
+          uds run test-all -f test/tasks.yaml
+
+      - name: Print cluster info
+        if: failure()
+        run: |
+          kubectl get nodes -o wide
+      
+      - name: Print pod info
+        if: failure()
+        run: |
+          kubectl get pods -A -o wide
+
+      - name: Print service info
+        if: failure()
+        run: |
+          kubectl get svc -A -o wide
+
+      - name: Print events
+        if: failure()
+        run: |
+          kubectl get events -A -o wide
+
+      - name: Teardown k3s cluster
+        if: always()
+        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
+        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
+        with:
+          cluster-action: destroy

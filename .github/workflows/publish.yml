@@ -5,11 +5,7 @@ concurrency:
     group: build-and-publish
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *'
 
 jobs:
   build-and-publish-package:
