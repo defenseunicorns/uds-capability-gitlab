@@ -105,7 +105,7 @@ jobs:
 
       - name: Build gitlab and all dependencies
         run: |
-          uds run build-all
+          uds run ci-build-all
 
       - name: Add zarf to bin on path
         run: |
@@ -128,7 +128,7 @@ jobs:
 
       - name: Deploy gitlab and all dependencies
         run: |
-          uds run deploy-all
+          uds run ci-deploy-all
 
       - name: Setup LB hostnames
         run: |
