@@ -125,7 +125,7 @@ jobs:
 
       - name: Install Pepr nlb lb module
         run: |
-          zarf tools kubectl apply -f test/lb-annotation-aws/pepr-module-lb-annotate.yaml
+          ./build/zarf tools kubectl apply -f test/lb-annotation-aws/pepr-module-lb-annotate.yaml
 
       - name: Deploy gitlab and all dependencies
         run: |
