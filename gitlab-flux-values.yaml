@@ -48,7 +48,7 @@ application:
         pages:
           name: pages.###ZARF_VAR_DOMAIN###
       registry:
-        bucket: uds-gitlab-registry###ZARF_VAR_BUCKET_SUFFIX###
+        # Registry bucket is defined in the storage secret
         relativeurls: true
       pages:
         enabled: ###ZARF_VAR_GITLAB_PAGES_ENABLED###
