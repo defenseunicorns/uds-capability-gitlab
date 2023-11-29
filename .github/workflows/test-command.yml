@@ -76,6 +76,11 @@ jobs:
     needs: parse
     if: needs.parse.outputs.run-e2e == 'true'
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Run E2E Tests
         uses: ./.github/actions/e2e
         with:
