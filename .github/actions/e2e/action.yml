@@ -9,12 +9,6 @@ inputs:
   role-to-assume:
     description: The AWS IAM Role to assume in the target account
     required: true
-  ghcr-username:
-    description: The ghcr container registry password to use
-    required: true
-  ghcr-password:
-    description: The ghcr container registry password to use
-    required: true
   registry1-username:
     description: The Registry1 container registry password to use
     required: true
@@ -30,14 +24,14 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ inputs.GITHUB_TOKEN }}
+        password: ${{ inputs.token }}
 
     - name: Login to registry1
       uses: docker/login-action@v2
       with:
         registry: registry1.dso.mil
-        username: ${{ inputs.REGISTRY1_USERNAME }}
-        password: ${{ inputs.REGISTRY1_PASSWORD }}
+        username: ${{ inputs.registry1-username }}
+        password: ${{ inputs.registry1-password }}
 
     - name: Install homebrew
       uses: Homebrew/actions/setup-homebrew@master
@@ -64,7 +58,7 @@ runs:
       uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
       with:
         cluster-action: create
-        aws-assume-role: ${{ inputs.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
+        aws-assume-role: ${{ inputs.role-to-assume }}
         aws-region: us-west-2
         instance-size: "m7a.8xlarge"
         ami-prefix: "rc-uds-ci-k3d"
