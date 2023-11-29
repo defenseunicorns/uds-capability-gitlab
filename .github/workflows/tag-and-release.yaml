@@ -12,6 +12,11 @@ jobs:
     outputs:
       release_created: ${{ steps.release-flag.outputs.release_created }}
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Create Release Tag
         id: tag
         uses: google-github-actions/release-please-action@v3
