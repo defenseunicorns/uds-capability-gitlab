@@ -58,9 +58,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
-          region: ${{ vars.AWS_REGION }}
-          github-context: "test / e2e (${{github.event_name}})"
-          aws-availability-zone: ${{ vars.AWS_AVAILABILITY_ZONE }}
+          region: us-west-2
           ghcr-username: ${{ github.actor }}
           ghcr-password: ${{ secrets.GITHUB_TOKEN }}
           registry1-username: ${{ secrets.REGISTRY1_USERNAME }}
