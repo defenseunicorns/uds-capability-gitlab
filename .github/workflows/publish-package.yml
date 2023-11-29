@@ -58,7 +58,6 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
-          region: us-west-2
           ghcr-username: ${{ github.actor }}
           ghcr-password: ${{ secrets.GITHUB_TOKEN }}
           registry1-username: ${{ secrets.REGISTRY1_USERNAME }}

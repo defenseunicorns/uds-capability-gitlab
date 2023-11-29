@@ -78,3 +78,10 @@ jobs:
     steps:
       - name: Run E2E Tests
         uses: ./.github/actions/e2e
+        with:
+          token: ${{ secrets.PAT }}
+          role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
+          ghcr-username: ${{ github.actor }}
+          ghcr-password: ${{ secrets.GITHUB_TOKEN }}
+          registry1-username: ${{ secrets.REGISTRY1_USERNAME }}
+          registry1-password: ${{ secrets.REGISTRY1_PASSWORD }}

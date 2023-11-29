@@ -1,4 +1,4 @@
-name: Publish UDS Capability Artifactory
+name: Publish UDS Capability Gitlab
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
       - id: release-flag
         run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
 
-  publish-uds-capability-artifactory:
+  publish-uds-capability-gitlab:
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true'}}
     uses: ./.github/workflows/publish-package.yml
