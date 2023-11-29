@@ -7,8 +7,9 @@ on:
     types: [test-command]
 
 permissions:
-  id-token: write
   contents: read
+  packages: write
+  id-token: write
 
 defaults:
   run:
@@ -83,7 +84,5 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
-          ghcr-username: ${{ github.actor }}
-          ghcr-password: ${{ secrets.GITHUB_TOKEN }}
           registry1-username: ${{ secrets.REGISTRY1_USERNAME }}
           registry1-password: ${{ secrets.REGISTRY1_PASSWORD }}
