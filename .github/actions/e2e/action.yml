@@ -30,14 +30,14 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ inputs.GITHUB_TOKEN }}
 
     - name: Login to registry1
       uses: docker/login-action@v2
       with:
         registry: registry1.dso.mil
-        username: ${{ secrets.REGISTRY1_USERNAME }}
-        password: ${{ secrets.REGISTRY1_PASSWORD }}
+        username: ${{ inputs.REGISTRY1_USERNAME }}
+        password: ${{ inputs.REGISTRY1_PASSWORD }}
 
     - name: Install homebrew
       uses: Homebrew/actions/setup-homebrew@master
@@ -64,7 +64,7 @@ runs:
       uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
       with:
         cluster-action: create
-        aws-assume-role: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
+        aws-assume-role: ${{ inputs.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
         aws-region: us-west-2
         instance-size: "m7a.8xlarge"
         ami-prefix: "rc-uds-ci-k3d"
