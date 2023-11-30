@@ -20,17 +20,10 @@ jobs:
       - name: Run E2E Tests
         uses: ./.github/actions/e2e
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
           registry1-username: ${{ secrets.REGISTRY1_USERNAME }}
           registry1-password: ${{ secrets.REGISTRY1_PASSWORD }}
-
-      - name: Login to GHCR
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and publish dev-dependency gitlab-postgres package
         run: ./zarf package publish zarf-package-gitlab-postgres-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
