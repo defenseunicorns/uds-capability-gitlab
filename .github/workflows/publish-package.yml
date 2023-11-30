@@ -26,16 +26,20 @@ jobs:
           registry1-password: ${{ secrets.REGISTRY1_PASSWORD }}
 
       - name: Build and publish dev-dependency gitlab-postgres package
-        run: build/zarf package publish zarf-package-gitlab-postgres-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        run: ./zarf package publish zarf-package-gitlab-postgres-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        working-directory: build
 
       - name: Build and publish dev-dependency gitlab-redis package
-        run: build/zarf package publish zarf-package-gitlab-redis-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        run: ./zarf package publish zarf-package-gitlab-redis-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        working-directory: build
 
       - name: Build and publish dev-dependency gitlab-minio package
-        run: build/zarf package publish zarf-package-gitlab-minio-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        run: ./zarf package publish zarf-package-gitlab-minio-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        working-directory: build
 
       - name: Publish gitlab package
-        run: build/zarf package publish zarf-package-gitlab-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability --no-progress
+        run: ./zarf package publish zarf-package-gitlab-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability --no-progress
+        working-directory: build
 
       - name: Publish gitlab skeleton
         run: build/zarf package publish . oci://ghcr.io/defenseunicorns/uds-capability --no-progress
