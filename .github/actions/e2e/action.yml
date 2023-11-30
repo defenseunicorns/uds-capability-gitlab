@@ -9,6 +9,9 @@ inputs:
   role-to-assume:
     description: The AWS IAM Role to assume in the target account
     required: true
+  instance-size:
+    description: Instance size of ec2 for k3s cluster
+    required: true
   registry1-username:
     description: The Registry1 container registry password to use
     required: true
@@ -60,7 +63,7 @@ runs:
         cluster-action: create
         aws-assume-role: ${{ inputs.role-to-assume }}
         aws-region: us-west-2
-        instance-size: "m7a.8xlarge"
+        instance-size: ${{ inputs.instance-size }}
         ami-prefix: "rc-uds-ci-k3d"
         k3s: "true"
 

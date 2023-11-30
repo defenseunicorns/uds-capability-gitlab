@@ -20,6 +20,7 @@ jobs:
       - name: Run E2E Tests
         uses: ./.github/actions/e2e
         with:
+          instance-size: ${{ vars.EC2_INSTANCE_SIZE }}
           token: ${{ secrets.GITHUB_TOKEN }}
           role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
           registry1-username: ${{ secrets.REGISTRY1_USERNAME }}
