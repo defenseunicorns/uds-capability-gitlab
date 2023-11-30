@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.9](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.8...v0.1.9) (2023-11-30)
+
+
+### Bug Fixes
+
+* added each dev-dep zarf.yaml to release please ([d6a027a](https://github.com/defenseunicorns/uds-capability-gitlab/commit/d6a027a1e62d8665d33da79bc9ba7d6b3606e5cf))
+* made versions uniform and fix publish in ci ([7c4f18f](https://github.com/defenseunicorns/uds-capability-gitlab/commit/7c4f18fbe076c62a45e693c0348820fa9bcd2c98))
+
 ## [0.1.8](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.7...v0.1.8) (2023-11-30)
 
 
