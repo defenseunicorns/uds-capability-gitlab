@@ -24,7 +24,10 @@
             "versioning": "always-bump-patch",
             "extra-files": [
                 "zarf.yaml",
-                "**/zarf.yaml"
+                "utils/pkg-deps/gitlab/minio/zarf.yaml",
+                "utils/pkg-deps/gitlab/postgres/zarf.yaml",
+                "utils/pkg-deps/gitlab/redis/zarf.yaml",
+                "utils/pkg-deps/namespaces/zarf.yaml"
             ]
         }
     }
