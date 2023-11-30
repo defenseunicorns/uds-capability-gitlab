@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab-redis
   # x-release-please-start-version
-  version: "0.1.9"
+  version: "0.1.8"
   # x-release-please-end
   architecture: amd64
 
