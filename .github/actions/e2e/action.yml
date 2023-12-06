@@ -1,0 +1,120 @@
+name: Run E2E Tests
+
+description: Run E2E Tests
+
+inputs:
+  token:
+    description: The GITHUB_TOKEN for the current workflow
+    required: true
+  role-to-assume:
+    description: The AWS IAM Role to assume in the target account
+    required: true
+  instance-size:
+    description: Instance size of ec2 for k3s cluster
+    required: true
+  registry1-username:
+    description: The Registry1 container registry password to use
+    required: true
+  registry1-password:
+    description: The Registry1 container registry password to use
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Login to GHCR
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ inputs.token }}
+
+    - name: Login to registry1
+      uses: docker/login-action@v2
+      with:
+        registry: registry1.dso.mil
+        username: ${{ inputs.registry1-username }}
+        password: ${{ inputs.registry1-password }}
+
+    - name: Install homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+
+    - name: Install uds-cli via homebrew
+      shell: bash -e -o pipefail {0}
+      run: |
+        brew tap defenseunicorns/tap
+        brew install uds
+
+    - name: Install sslscan via apt
+      shell: bash -e -o pipefail {0}
+      run: |
+        sudo apt update
+        sudo apt install sslscan -y
+
+    - name: Build gitlab and all dependencies
+      shell: bash -e -o pipefail {0}
+      run: |
+        uds run ci-build-all
+
+    - name: Create k3s cluster in AWS
+      id: create-cluster
+      uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
+      with:
+        cluster-action: create
+        aws-assume-role: ${{ inputs.role-to-assume }}
+        aws-region: us-west-2
+        instance-size: ${{ inputs.instance-size }}
+        ami-prefix: "rc-uds-ci-k3d"
+        k3s: "true"
+
+    - name: Install Pepr nlb lb module
+      shell: bash -e -o pipefail {0}
+      run: |
+        ./build/zarf tools kubectl apply -f test/lb-annotation-aws/pepr-module-lb-annotate.yaml
+
+    - name: Deploy gitlab and all dependencies
+      shell: bash -e -o pipefail {0}
+      run: |
+        uds run ci-deploy-all
+
+    - name: Setup LB hostnames
+      shell: bash -e -o pipefail {0}
+      run: |
+        utils/metallb/dns.sh
+        sudo utils/metallb/hosts-write.sh
+
+    - name: Run tests
+      shell: bash -e -o pipefail {0}
+      run: |
+        uds run test-all -f test/tasks.yaml
+
+    - name: Print cluster info
+      if: failure()
+      shell: bash -e -o pipefail {0}
+      run: |
+        kubectl get nodes -o wide
+    
+    - name: Print pod info
+      if: failure()
+      shell: bash -e -o pipefail {0}
+      run: |
+        kubectl get pods -A -o wide
+
+    - name: Print service info
+      if: failure()
+      shell: bash -e -o pipefail {0}
+      run: |
+        kubectl get svc -A -o wide
+
+    - name: Print events
+      if: failure()
+      shell: bash -e -o pipefail {0}
+      run: |
+        kubectl get events -A -o wide
+
+    - name: Teardown k3s cluster
+      if: always()
+      # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
+      uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
+      with:
+        cluster-action: destroy

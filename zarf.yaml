@@ -3,7 +3,9 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
-  version: "0.1.7"
+  # x-release-please-start-version
+  version: "0.1.8"
+  # x-release-please-end
   architecture: amd64
 
 variables:

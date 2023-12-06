@@ -5,13 +5,11 @@ name: test
 on:
   repository_dispatch:
     types: [test-command]
-  push:
-    branches:
-      - main
 
 permissions:
-  id-token: write
   contents: read
+  packages: write
+  id-token: write
 
 defaults:
   run:
@@ -81,87 +79,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Login to GHCR
-        uses: docker/login-action@v2
+      - name: Run E2E Tests
+        uses: ./.github/actions/e2e
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Login to registry1
-        uses: docker/login-action@v2
-        with:
-          registry: registry1.dso.mil
-          username: ${{ secrets.REGISTRY1_USERNAME }}
-          password: ${{ secrets.REGISTRY1_PASSWORD }}
-
-      - name: Install homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-
-      - name: Install uds-cli via homebrew
-        run: |
-          brew tap defenseunicorns/tap
-          brew install uds
-
-      - name: Build gitlab and all dependencies
-        run: |
-          uds run ci-build-all
-
-      - name: Add zarf to bin on path
-        run: |
-          sudo cp build/zarf /usr/local/bin/zarf
-
-      - name: Create k3s cluster in AWS
-        id: create-cluster
-        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
-        with:
-          cluster-action: create
-          aws-assume-role: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
-          aws-region: us-west-2
-          instance-size: "m7a.8xlarge"
-          ami-prefix: "rc-uds-ci-k3d"
-          k3s: "true"
-
-      - name: Install Pepr nlb lb module
-        run: |
-          zarf tools kubectl apply -f test/lb-annotation-aws/pepr-module-lb-annotate.yaml
-
-      - name: Deploy gitlab and all dependencies
-        run: |
-          uds run ci-deploy-all
-
-      - name: Setup LB hostnames
-        run: |
-          utils/metallb/dns.sh
-          sudo utils/metallb/hosts-write.sh
-
-      - name: Run tests
-        run: |
-          uds run test-all -f test/tasks.yaml
-
-      - name: Print cluster info
-        if: failure()
-        run: |
-          kubectl get nodes -o wide
-      
-      - name: Print pod info
-        if: failure()
-        run: |
-          kubectl get pods -A -o wide
-
-      - name: Print service info
-        if: failure()
-        run: |
-          kubectl get svc -A -o wide
-
-      - name: Print events
-        if: failure()
-        run: |
-          kubectl get events -A -o wide
-
-      - name: Teardown k3s cluster
-        if: always()
-        # renovate: datasource=github-tags depName=defenseunicorns/uds-aws-ci-k3d versioning=semver
-        uses: defenseunicorns/uds-aws-ci-k3d@swf_additions
-        with:
-          cluster-action: destroy
+          instance-size: ${{ vars.EC2_INSTANCE_SIZE }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
+          registry1-username: ${{ secrets.REGISTRY1_USERNAME }}
+          registry1-password: ${{ secrets.REGISTRY1_PASSWORD }}

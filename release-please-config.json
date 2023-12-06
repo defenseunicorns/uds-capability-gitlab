@@ -1,0 +1,34 @@
+{
+    "packages": {
+        ".": {
+            "release-type": "simple",
+            "draft": false,
+            "changelog-path": "CHANGELOG.md",
+            "changelog-sections": [
+                {
+                    "type": "feat",
+                    "section": "Features",
+                    "hidden": false
+                },
+                {
+                    "type": "fix",
+                    "section": "Bug Fixes",
+                    "hidden": false
+                },
+                {
+                    "type": "chore",
+                    "section": "Miscellaneous",
+                    "hidden": false
+                }
+            ],
+            "versioning": "always-bump-patch",
+            "extra-files": [
+                "zarf.yaml",
+                "utils/pkg-deps/gitlab/minio/zarf.yaml",
+                "utils/pkg-deps/gitlab/postgres/zarf.yaml",
+                "utils/pkg-deps/gitlab/redis/zarf.yaml",
+                "utils/pkg-deps/namespaces/zarf.yaml"
+            ]
+        }
+    }
+}

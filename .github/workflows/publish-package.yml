@@ -1,0 +1,46 @@
+name: Publish Zarf Package
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  publish-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run E2E Tests
+        uses: ./.github/actions/e2e
+        with:
+          instance-size: ${{ vars.EC2_INSTANCE_SIZE }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
+          registry1-username: ${{ secrets.REGISTRY1_USERNAME }}
+          registry1-password: ${{ secrets.REGISTRY1_PASSWORD }}
+
+      - name: Build and publish dev-dependency gitlab-postgres package
+        run: ./zarf package publish zarf-package-gitlab-postgres-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        working-directory: build
+
+      - name: Build and publish dev-dependency gitlab-redis package
+        run: ./zarf package publish zarf-package-gitlab-redis-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        working-directory: build
+
+      - name: Build and publish dev-dependency gitlab-minio package
+        run: ./zarf package publish zarf-package-gitlab-minio-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability/gitlab/dev-dependency --no-progress
+        working-directory: build
+
+      - name: Publish gitlab package
+        run: ./zarf package publish zarf-package-gitlab-amd64-*.tar.zst oci://ghcr.io/defenseunicorns/uds-capability --no-progress
+        working-directory: build
+
+      - name: Publish gitlab skeleton
+        run: build/zarf package publish . oci://ghcr.io/defenseunicorns/uds-capability --no-progress
