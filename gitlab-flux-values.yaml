@@ -107,6 +107,8 @@ application:
       annotations:
         bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
       storage:
+        redirect:
+          disable: ###ZARF_VAR_DISABLE_REGISTRY_REDIRECT###
         secret: gitlab-object-store
         key: registry
       metrics:
