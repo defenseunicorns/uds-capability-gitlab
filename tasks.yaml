@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/uds-cli/main/tasks.schema.json
 variables:
   - name: ZARF_VERSION
-    default: v0.31.2
+    default: v0.31.4
   - name: DUBBD_K3D_VERSION
-    default: 0.13.0
+    default: 0.15.0
   - name: METALLB_VERSION
     default: 0.0.5
 
