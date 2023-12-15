@@ -85,6 +85,7 @@ components:
       - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-shell:16.5.1
       - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-sidekiq:16.5.1
       - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-toolbox:16.5.1
+      - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-pages:16.5.1
       - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-webservice:16.5.1
       - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-workhorse:16.5.1
       - registry1.dso.mil/ironbank/gitlab/gitlab/kubectl:16.5.1
