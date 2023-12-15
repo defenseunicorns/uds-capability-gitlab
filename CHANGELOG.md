@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.10](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.9...v0.1.10) (2023-12-14)
+
+
+### Features
+
+* allow changing of registry redirect behaviour ([0f88130](https://github.com/defenseunicorns/uds-capability-gitlab/commit/0f8813082b78c57343a0774ccc29b108732dd2bf))
+* initial oscal ([#49](https://github.com/defenseunicorns/uds-capability-gitlab/issues/49)) ([41bc5a1](https://github.com/defenseunicorns/uds-capability-gitlab/commit/41bc5a15460644b7f2ecb6fcd801f3e2fcab7f99))
+
+
+### Miscellaneous
+
+* fix actions more better ([9f34593](https://github.com/defenseunicorns/uds-capability-gitlab/commit/9f34593168f5c73610fec52d8f45cb918b78ba69))
+* fix ghcr login maybe ([130c617](https://github.com/defenseunicorns/uds-capability-gitlab/commit/130c61786e54668dcfa527081631867805245184))
+* **main:** release 0.1.8 ([#58](https://github.com/defenseunicorns/uds-capability-gitlab/issues/58)) ([eda3d0a](https://github.com/defenseunicorns/uds-capability-gitlab/commit/eda3d0a1b9aa5f80f7e9b637809cf4288e7bbb78))
+* **main:** release 0.1.9 ([#59](https://github.com/defenseunicorns/uds-capability-gitlab/issues/59)) ([e6dee58](https://github.com/defenseunicorns/uds-capability-gitlab/commit/e6dee5810938a925e01a322c43694cb9b969b1b7))
+* remove bad changelog info ([305d87b](https://github.com/defenseunicorns/uds-capability-gitlab/commit/305d87b2ba01c3176879e1f20c43ef48bed03da3))
+* Update gitlab to 7.5.1-bb.1 ([#60](https://github.com/defenseunicorns/uds-capability-gitlab/issues/60)) ([567cce1](https://github.com/defenseunicorns/uds-capability-gitlab/commit/567cce1e4f8b700937395eb2aeefbfc9ecdfc838))
+* Update zarf and DUBBD ([567cce1](https://github.com/defenseunicorns/uds-capability-gitlab/commit/567cce1e4f8b700937395eb2aeefbfc9ecdfc838))
+
 ## [0.1.9](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.8...v0.1.9) (2023-12-14)
 
 
