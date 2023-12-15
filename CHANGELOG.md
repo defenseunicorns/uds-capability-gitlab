@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.11](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.10...v0.1.11) (2023-12-15)
+
+
+### Bug Fixes
+
+* Add missing pages image ([77a1341](https://github.com/defenseunicorns/uds-capability-gitlab/commit/77a1341e0d5a198ae2207e9aa2b0d39d26a21c4b))
+
 ## [0.1.10](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.9...v0.1.10) (2023-12-14)
 
 
