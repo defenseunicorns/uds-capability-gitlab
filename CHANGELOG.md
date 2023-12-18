@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.14](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.13...v0.1.14) (2023-12-18)
+
+
+### Bug Fixes
+
+* Gitlab toolbox backup wait ([4176cc4](https://github.com/defenseunicorns/uds-capability-gitlab/commit/4176cc483ef39e15d237c6d07514121efccf8e73))
+
 ## [0.1.13](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.12...v0.1.13) (2023-12-18)
 
 
