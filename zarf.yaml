@@ -53,7 +53,7 @@ variables:
   - name: GITLAB_BACKUP_ENABLED
     default: "true"
   - name: GITLAB_BACKUP_SCHEDULE
-    default: "0 */3 * * *"
+    default: "0 3 * * *"
   - name: GITLAB_BACKUP_EXTRA_ARGS
     default: ""
   - name: GITLAB_BACKUP_PVC_SIZE
