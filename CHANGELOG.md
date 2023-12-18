@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.12](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.11...v0.1.12) (2023-12-18)
+
+
+### Features
+
+* Add backup cron config ([#63](https://github.com/defenseunicorns/uds-capability-gitlab/issues/63)) ([34d95ed](https://github.com/defenseunicorns/uds-capability-gitlab/commit/34d95edf2cc414275fa58a7fcb8add8df35da388))
+
 ## [0.1.11](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.10...v0.1.11) (2023-12-15)
 
 
