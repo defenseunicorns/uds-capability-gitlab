@@ -110,12 +110,11 @@ components:
         after:
           - wait:
               cluster:
-                kind: Deployment
-                name: gitlab-webservice-default
-                condition: available
+                kind: CronJob
+                name: gitlab-toolbox-backup
                 namespace: gitlab
             maxTotalSeconds: 900
-            description: GitLab Webservice to be Ready
+            description: GitLab Backup CronJob Exists
           # This is needed on initial deployment to bind the PVC and allow the helmrelease to become ready
           - cmd: "kubectl create job -n gitlab --from=cronjob/gitlab-toolbox-backup deployment-gitlab-toolbox-backup-$(date +%s)"
             description: Triggger Gitlab Backup
