@@ -53,9 +53,13 @@ variables:
   - name: GITLAB_BACKUP_ENABLED
     default: "true"
   - name: GITLAB_BACKUP_SCHEDULE
-    default: "0 */3 * * *"
+    default: "0 3 * * *"
   - name: GITLAB_BACKUP_EXTRA_ARGS
     default: ""
+  - name: GITLAB_BACKUP_PVC_SIZE
+    default: "500Gi"
+  - name: GITLAB_TOOLBOX_PVC_SIZE
+    default: "250Gi"
   - name: DISABLE_REGISTRY_REDIRECT
     default: "false"
     description: "If your storage endpoint is not publicly accessible set this to true"
@@ -104,6 +108,17 @@ components:
     actions:
       onDeploy:
         after:
+          - wait:
+              cluster:
+                kind: Deployment
+                name: gitlab-webservice-default
+                condition: available
+                namespace: gitlab
+            maxTotalSeconds: 900
+            description: GitLab Webservice to be Ready
+          # This is needed on initial deployment to bind the PVC and allow the helmrelease to become ready
+          - cmd: "kubectl create job -n gitlab --from=cronjob/gitlab-toolbox-backup deployment-gitlab-toolbox-backup-$(date +%s)"
+            description: Triggger Gitlab Backup
           - wait:
               cluster:
                 kind: helmRelease
