@@ -123,6 +123,17 @@ application:
 
     gitlab:
       toolbox:
+        resources:
+          requests:
+            cpu: 50m
+            memory: 350M
+          limits:
+            cpu: 2
+            memory: 3.5Gi
+        persistence:
+          enabled: true
+          accessMode: ReadWriteOnce
+          size: 250Gi
         annotations:
           bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
         backups:
@@ -133,7 +144,20 @@ application:
           cron:
             enabled: ###ZARF_VAR_GITLAB_BACKUP_ENABLED###
             schedule: ###ZARF_VAR_GITLAB_BACKUP_SCHEDULE###
+            # Example extraArgs to skip things. --skip registry,uploads,artifacts,external_diffs
             extraArgs: ###ZARF_VAR_GITLAB_BACKUP_EXTRA_ARGS###
+            concurrencyPolicy: Replace
+            persistence:
+              enabled: true
+              accessMode: ReadWriteOnce
+              size: ###ZARF_VAR_GITLAB_BACKUP_PVC_SIZE###
+            resources:
+              requests:
+                cpu: 50m
+                memory: 350M
+              limits:
+                cpu: 2
+                memory: 2G
       gitlab-exporter:
         enabled: true
         metrics:

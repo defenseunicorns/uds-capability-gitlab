@@ -56,6 +56,8 @@ variables:
     default: "0 */3 * * *"
   - name: GITLAB_BACKUP_EXTRA_ARGS
     default: ""
+  - name: GITLAB_BACKUP_PVC_SIZE
+    default: "500Gi"
   - name: DISABLE_REGISTRY_REDIRECT
     default: "false"
     description: "If your storage endpoint is not publicly accessible set this to true"
