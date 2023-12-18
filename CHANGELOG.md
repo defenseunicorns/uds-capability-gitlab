@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.13](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.12...v0.1.13) (2023-12-18)
+
+
+### Features
+
+* Add more backup and restore config options ([#65](https://github.com/defenseunicorns/uds-capability-gitlab/issues/65)) ([0bda9dd](https://github.com/defenseunicorns/uds-capability-gitlab/commit/0bda9dd543727f19d943535712147b8fc34dbc78))
+
 ## [0.1.12](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.11...v0.1.12) (2023-12-18)
 
 
