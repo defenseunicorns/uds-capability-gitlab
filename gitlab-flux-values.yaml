@@ -133,7 +133,7 @@ application:
         persistence:
           enabled: true
           accessMode: ReadWriteOnce
-          size: 250Gi
+          size: ###ZARF_VAR_GITLAB_TOOLBOX_PVC_SIZE###
         annotations:
           bigbang.dev/istioVersion: ###ZARF_VAR_ISTIO_VERSION###
         backups:
