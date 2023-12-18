@@ -50,6 +50,12 @@ variables:
     default: "false"
   - name: GITLAB_SIGNUP_ENABLED
     default: "true"
+  - name: GITLAB_BACKUP_ENABLED
+    default: "true"
+  - name: GITLAB_BACKUP_SCHEDULE
+    default: "0 */3 * * *"
+  - name: GITLAB_BACKUP_EXTRA_ARGS
+    default: ""
   - name: DISABLE_REGISTRY_REDIRECT
     default: "false"
     description: "If your storage endpoint is not publicly accessible set this to true"

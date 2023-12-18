@@ -130,6 +130,10 @@ application:
             config:
               secret: gitlab-object-store
               key: backups
+          cron:
+            enabled: ###ZARF_VAR_GITLAB_BACKUP_ENABLED###
+            schedule: ###ZARF_VAR_GITLAB_BACKUP_SCHEDULE###
+            extraArgs: ###ZARF_VAR_GITLAB_BACKUP_EXTRA_ARGS###
       gitlab-exporter:
         enabled: true
         metrics:
