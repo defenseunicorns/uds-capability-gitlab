@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab-minio
   # x-release-please-start-version
-  version: "0.1.13"
+  version: "0.1.14"
   # x-release-please-end
   architecture: amd64
 
