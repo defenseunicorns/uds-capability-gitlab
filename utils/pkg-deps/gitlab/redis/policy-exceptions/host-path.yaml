@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2alpha1
+kind: PolicyException
+metadata:
+  name: gitlab-redis-host-path-exception
+  namespace: gitlab-redis
+spec:
+  exceptions:
+  - policyName: restrict-host-path-write
+    ruleNames:
+    - require-readonly-hostpath
+  match:
+    any:
+    - resources:
+        kinds:
+        - Pod
+        namespaces:
+        - gitlab-redis
+        names:
+        - redis-master*

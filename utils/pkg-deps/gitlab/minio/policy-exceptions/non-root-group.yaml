@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2alpha1
+kind: PolicyException
+metadata:
+  name: gitlab-minio-non-root-group-exception
+  namespace: gitlab-minio
+spec:
+  exceptions:
+  - policyName: require-non-root-group
+    ruleNames:
+    - run-as-group
+  match:
+    any:
+    - resources:
+        kinds:
+        - Pod
+        namespaces:
+        - gitlab-minio
+        names:
+        - minio-post-job-*
