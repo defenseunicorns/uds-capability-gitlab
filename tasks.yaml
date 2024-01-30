@@ -149,21 +149,21 @@ tasks:
   - name: build-zarf-init
     actions:
       - cmd: |
-          if [ -f build/zarf-init-${ARCH}-${ZARF_VERSION}.tar.zst ] ; then exit 0; fi
-          echo "Downloading zarf-init-${ARCH}-${ZARF_VERSION}.tar.zst"
-          curl -sL https://github.com/defenseunicorns/zarf/releases/download/${ZARF_VERSION}/zarf-init-${ARCH}-${ZARF_VERSION}.tar.zst -o ./zarf-init-${ARCH}-${ZARF_VERSION}.tar.zst
+          if [ -f build/zarf-init-amd64-${ZARF_VERSION}.tar.zst ] ; then exit 0; fi
+          echo "Downloading zarf-init-amd64-${ZARF_VERSION}.tar.zst"
+          curl -sL https://github.com/defenseunicorns/zarf/releases/download/${ZARF_VERSION}/zarf-init-amd64-${ZARF_VERSION}.tar.zst -o ./zarf-init-amd64-${ZARF_VERSION}.tar.zst
         dir: build
 
   - name: build-metallb
     actions:
-      - cmd: ./zarf package pull oci://ghcr.io/defenseunicorns/packages/metallb:${METALLB_VERSION}-${ARCH}
+      - cmd: ./zarf package pull oci://ghcr.io/defenseunicorns/packages/metallb:${METALLB_VERSION}-amd64
         dir: build
 
   - name: build-dubbd-k3d
     actions:
       - cmd: |
-          if [ -f build/zarf-package-dubbd-k3d-${ARCH}-${DUBBD_K3D_VERSION}.tar.zst ] ; then exit 0; fi
-          ./zarf package pull oci://ghcr.io/defenseunicorns/packages/dubbd-k3d:${DUBBD_K3D_VERSION} -a ${ARCH} --oci-concurrency 12
+          if [ -f build/zarf-package-dubbd-k3d-amd64-${DUBBD_K3D_VERSION}.tar.zst ] ; then exit 0; fi
+          ./zarf package pull oci://ghcr.io/defenseunicorns/packages/dubbd-k3d:${DUBBD_K3D_VERSION} -a amd64 --oci-concurrency 12
         dir: build
 
   - name: build-test-pkg-deps
@@ -191,12 +191,12 @@ tasks:
   - name: deploy-metallb
     actions:
       - task: set-network-range
-      - cmd: ./zarf package deploy zarf-package-metallb-${ARCH}-${METALLB_VERSION}.tar.zst --set IP_ADDRESS_POOL=${NETWORK_RANGE_START}-${NETWORK_RANGE_END} --confirm
+      - cmd: ./zarf package deploy zarf-package-metallb-amd64-${METALLB_VERSION}.tar.zst --set IP_ADDRESS_POOL=${NETWORK_RANGE_START}-${NETWORK_RANGE_END} --confirm
         dir: build
 
   - name: deploy-dubbd-k3d
     actions:
-      - cmd: ./zarf package deploy zarf-package-dubbd-k3d-${ARCH}-${DUBBD_K3D_VERSION}.tar.zst --confirm
+      - cmd: ./zarf package deploy zarf-package-dubbd-k3d-amd64-${DUBBD_K3D_VERSION}.tar.zst --confirm
         dir: build
 
   - name: deploy-test-pkg-deps
