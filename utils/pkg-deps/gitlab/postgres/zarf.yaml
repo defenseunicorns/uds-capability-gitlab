@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: gitlab-postgres
   # x-release-please-start-version
-  version: "0.1.15"
+  version: "0.1.16"
   # x-release-please-end
   architecture: amd64
 
