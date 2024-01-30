@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.16](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.15...v0.1.16) (2024-01-30)
+
+
+### Features
+
+* add initial lula lint action ([#73](https://github.com/defenseunicorns/uds-capability-gitlab/issues/73)) ([da74d1a](https://github.com/defenseunicorns/uds-capability-gitlab/commit/da74d1a240722f2d258965c730dd92eb4c447f88))
+
+
+### Miscellaneous
+
+* update gitlab to 7.7.0-bb.0 ([7492272](https://github.com/defenseunicorns/uds-capability-gitlab/commit/749227243cbf0d8500bdc257799dfe63212294bf))
+* Upgrade zarf and DUBBD ([#75](https://github.com/defenseunicorns/uds-capability-gitlab/issues/75)) ([7492272](https://github.com/defenseunicorns/uds-capability-gitlab/commit/749227243cbf0d8500bdc257799dfe63212294bf))
+
 ## [0.1.15](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.14...v0.1.15) (2024-01-08)
 
 
