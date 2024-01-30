@@ -15,6 +15,8 @@ components:
         files:
           - policy-exceptions/externalName.yaml
           - policy-exceptions/registry.yaml
+          - policy-exceptions/host-path.yaml
+          - policy-exceptions/non-root-group.yaml
   - name: redis-istio-exceptions
     required: true
     manifests:

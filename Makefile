@@ -160,7 +160,7 @@ build/zarf-init: | build ## Download the init package
 .PHONY: build/dubbd-k3d
 build/dubbd-k3d: | build/zarf ## Download dubbd k3d oci package
 	if [ -f build/zarf-package-dubbd-k3d-amd64-$(DUBBD_K3D_VERSION).tar.zst ] ; then exit 0; fi && \
-	cd build && ./zarf package pull oci://ghcr.io/defenseunicorns/packages/dubbd-k3d:$(DUBBD_K3D_VERSION)-amd64 --oci-concurrency 12
+	cd build && ./zarf package pull oci://ghcr.io/defenseunicorns/packages/dubbd-k3d:$(DUBBD_K3D_VERSION) -a amd64 --oci-concurrency 12
 
 build/test-pkg-deps: | build/zarf ## Build package dependencies for testing
 	cd build && ./zarf package create ../utils/pkg-deps/namespaces/ --skip-sbom --confirm

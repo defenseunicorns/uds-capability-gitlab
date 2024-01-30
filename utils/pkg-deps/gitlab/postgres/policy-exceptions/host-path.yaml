@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v2alpha1
+kind: PolicyException
+metadata:
+  name: gitlab-postgres-host-path-exception
+  namespace: gitlab-db
+spec:
+  exceptions:
+  - policyName: restrict-host-path-write
+    ruleNames:
+    - require-readonly-hostpath
+  match:
+    any:
+    - resources:
+        kinds:
+        - Pod
+        namespaces:
+        - gitlab-db
+        names:
+        - postgresql-0
