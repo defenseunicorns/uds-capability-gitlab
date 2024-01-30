@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.17](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.16...v0.1.17) (2024-01-30)
+
+
+### Bug Fixes
+
+* revert arch change in tasks for now ([6b977fa](https://github.com/defenseunicorns/uds-capability-gitlab/commit/6b977fa4c472d797e646eec5ae49347bf8f2ad57))
+
 ## [0.1.16](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.15...v0.1.16) (2024-01-30)
 
 

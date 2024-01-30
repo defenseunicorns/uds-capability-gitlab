@@ -4,7 +4,7 @@ metadata:
   name: gitlab-namespaces
   description: "package used to deploy needed namespaces"
   # x-release-please-start-version
-  version: "0.1.16"
+  version: "0.1.17"
   # x-release-please-end
   architecture: amd64
 
