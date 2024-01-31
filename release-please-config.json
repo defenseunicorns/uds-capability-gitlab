@@ -24,6 +24,7 @@
             "versioning": "always-bump-patch",
             "extra-files": [
                 "zarf.yaml",
+                "utils/pkg-deps/gitlab/kyverno-exceptions/zarf.yaml",
                 "utils/pkg-deps/gitlab/minio/zarf.yaml",
                 "utils/pkg-deps/gitlab/postgres/zarf.yaml",
                 "utils/pkg-deps/gitlab/redis/zarf.yaml",
