@@ -56,51 +56,46 @@ Object Storage works a bit differently as there are many kinds of file stores gi
   - uds-gitlab-tmp
 - These buckets can have a suffix applied via the `BUCKET_SUFFIX` zarf variable (e.x. `-some-deployment-name` plus `uds-gitlab-backups` would be `uds-gitlab-backups-some-deployment-name`)
 
-## Deploying
 
-### Deploy Everything
-
-#### Via Makefile and local package
+## Zarf and UDS.
+If you don't have zarf or uds installed there are `make` targets to download the configured versions of those tools.
 
 ```bash
-# This will destroy and create a compatible k3d cluster then it will run make build/all and make deploy/all. Follow the breadcrumbs in the Makefile to see what and how its doing it.
-make cluster/full
-```
-
-### From GHCR OCI Via Zarf
-
-```bash
-zarf package deploy ghcr.io/defenseunicorns/uds-capability/gitlab:0.0.6-amd64
-```
-
-## Building
-
-### Use zarf to login to the needed registries i.e. registry1.dso.mil and ghcr.io
-
-```bash
-# Download Zarf
 make build/zarf
+make build/uds
+```
 
+This will place those binaries in the `build` directory. You can use those binaries there or place them on your PATH. You can also use brew to install these tools.
+
+```bash
+brew tap defenseunicorns/tap && brew install uds && brew install zarf
+```
+
+### Use zarf to login to the needed registries i.e. registry1.dso.mil
+
+```bash
 # Login to the registry
 set +o history
 
 # registry1.dso.mil (To access registry1 images needed during build time)
 export REGISTRY1_USERNAME="YOUR-USERNAME-HERE"
 export REGISTRY1_TOKEN="YOUR-TOKEN-HERE"
-echo $REGISTRY1_TOKEN | build/zarf tools registry login registry1.dso.mil --username $REGISTRY1_USERNAME --password-stdin
-
-# ghcr.io (If you need to push to GHCR)
-export GH_USERNAME="YOUR-USERNAME-HERE"
-export GH_TOKEN="YOUR-TOKEN-HERE"
-echo $GH_TOKEN | build/zarf tools registry login ghcr.io --username $GH_USERNAME --password-stdin
+echo $REGISTRY1_TOKEN | zarf tools registry login registry1.dso.mil --username $REGISTRY1_USERNAME --password-stdin
 
 set -o history
 ```
 
-### Creating the Package
+# Building and Deploying
+There are UDS tasks in this project you can run to build and deploy different pieces.
 
+## List availble tasks
 ```bash
-make build/uds-capability-gitlab
+uds run --list
+```
+
+## Build and deploy everything
+```bash
+uds run all
 ```
 
 ## Documentation
