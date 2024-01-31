@@ -4,7 +4,7 @@ metadata:
   name: gitlab
   description: "UDS GitLab capability deployed via flux"
   # x-release-please-start-version
-  version: "0.1.17"
+  version: "0.1.15"
   # x-release-please-end
   architecture: amd64
 
@@ -124,5 +124,5 @@ components:
                 name: gitlab
                 condition: Ready
                 namespace: bigbang
-            maxTotalSeconds: 900
+            maxTotalSeconds: 1800
             description: GitLab HelmRelease to be Ready
