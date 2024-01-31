@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.16](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.15...v0.1.16) (2024-01-31)
+
+
+### Features
+
+* add initial lula lint action ([#73](https://github.com/defenseunicorns/uds-capability-gitlab/issues/73)) ([da74d1a](https://github.com/defenseunicorns/uds-capability-gitlab/commit/da74d1a240722f2d258965c730dd92eb4c447f88))
+
+
+### Bug Fixes
+
+* Add kyverno exception for backup job in test ([3d39964](https://github.com/defenseunicorns/uds-capability-gitlab/commit/3d39964b8faf12a2b4c058205d66bc4dbc3ee3c7))
+* revert arch change in tasks for now ([6b977fa](https://github.com/defenseunicorns/uds-capability-gitlab/commit/6b977fa4c472d797e646eec5ae49347bf8f2ad57))
+
+
+### Miscellaneous
+
+* add file to release please ([66cc692](https://github.com/defenseunicorns/uds-capability-gitlab/commit/66cc6923ea057624112b1d6ec05ab903299466b3))
+* **main:** release 0.1.16 ([#74](https://github.com/defenseunicorns/uds-capability-gitlab/issues/74)) ([df1a3d0](https://github.com/defenseunicorns/uds-capability-gitlab/commit/df1a3d0f5a00b32f95a4f93bfc1c76c3078e76a6))
+* **main:** release 0.1.17 ([#76](https://github.com/defenseunicorns/uds-capability-gitlab/issues/76)) ([133de71](https://github.com/defenseunicorns/uds-capability-gitlab/commit/133de71967ca7879ed5219d50ef2b83b0119aad4))
+* Reset to version 0.1.15 ([2285d1d](https://github.com/defenseunicorns/uds-capability-gitlab/commit/2285d1da22c455bc6b8c882f02db4e24950dff02))
+* update gitlab to 7.7.0-bb.0 ([7492272](https://github.com/defenseunicorns/uds-capability-gitlab/commit/749227243cbf0d8500bdc257799dfe63212294bf))
+* Upgrade zarf and DUBBD ([#75](https://github.com/defenseunicorns/uds-capability-gitlab/issues/75)) ([7492272](https://github.com/defenseunicorns/uds-capability-gitlab/commit/749227243cbf0d8500bdc257799dfe63212294bf))
+
 ## [0.1.15](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.14...v0.1.15) (2024-01-08)
 
 
