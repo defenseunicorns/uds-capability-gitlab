@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: gitlab-kyverno-exceptions
+  # x-release-please-start-version
+  version: "0.1.15"
+  # x-release-please-end
+  architecture: amd64
+
+components:
+  - name: gitlab-kyverno-exceptions
+    required: true
+    manifests:
+      - name: kyverno-exceptions
+        files:
+          - non-root-group.yaml

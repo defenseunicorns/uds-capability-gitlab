@@ -124,5 +124,5 @@ components:
                 name: gitlab
                 condition: Ready
                 namespace: bigbang
-            maxTotalSeconds: 1800
+            maxTotalSeconds: 900
             description: GitLab HelmRelease to be Ready

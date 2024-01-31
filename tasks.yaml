@@ -169,10 +169,11 @@ tasks:
   - name: build-test-pkg-deps
     actions:
       - cmd: |
-          ./zarf package create ../utils/pkg-deps/namespaces/      --skip-sbom --confirm
-          ./zarf package create ../utils/pkg-deps/gitlab/postgres/ --skip-sbom --confirm
-          ./zarf package create ../utils/pkg-deps/gitlab/redis/    --skip-sbom --confirm
-          ./zarf package create ../utils/pkg-deps/gitlab/minio/    --skip-sbom --confirm
+          ./zarf package create ../utils/pkg-deps/namespaces/                   --skip-sbom --confirm
+          ./zarf package create ../utils/pkg-deps/gitlab/postgres/              --skip-sbom --confirm
+          ./zarf package create ../utils/pkg-deps/gitlab/redis/                 --skip-sbom --confirm
+          ./zarf package create ../utils/pkg-deps/gitlab/minio/                 --skip-sbom --confirm
+          ./zarf package create ../utils/pkg-deps/gitlab/kyverno-exceptions/    --skip-sbom --confirm
         dir: build
 
   - name: build-uds-capability-gitlab
@@ -206,6 +207,7 @@ tasks:
           ./zarf package deploy zarf-package-gitlab-postgres-*   --confirm
           ./zarf package deploy zarf-package-gitlab-redis-*      --confirm
           ./zarf package deploy zarf-package-gitlab-minio-*      --confirm
+          ./zarf package deploy zarf-package-gitlab-kyverno-*    --confirm
         dir: build
 
   - name: deploy-uds-capability-gitlab
