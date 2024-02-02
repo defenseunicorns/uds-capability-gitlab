@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.17](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.16...v0.1.17) (2024-02-02)
+
+
+### Miscellaneous
+
+* bump dubbd to 0.18.0 ([0fb09d0](https://github.com/defenseunicorns/uds-capability-gitlab/commit/0fb09d0aebab812d96d21689494b5eaf12e8f2cd))
+* Update gitlab to 7.8.1-bb.0 ([#78](https://github.com/defenseunicorns/uds-capability-gitlab/issues/78)) ([0fb09d0](https://github.com/defenseunicorns/uds-capability-gitlab/commit/0fb09d0aebab812d96d21689494b5eaf12e8f2cd))
+
 ## [0.1.16](https://github.com/defenseunicorns/uds-capability-gitlab/compare/v0.1.15...v0.1.16) (2024-01-31)
 
 
