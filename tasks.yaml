@@ -3,7 +3,7 @@ variables:
   - name: ZARF_VERSION
     default: v0.32.2
   - name: DUBBD_K3D_VERSION
-    default: 0.17.0
+    default: 0.18.0
   - name: METALLB_VERSION
     default: 0.0.5
 
