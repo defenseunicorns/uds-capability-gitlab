@@ -83,7 +83,7 @@ spec:
       serviceAccountName: pepr-34fec800-b359-5c99-9155-92b2b09bb22b
       containers:
         - name: server
-          image: ghcr.io/defenseunicorns/pepr/controller:v0.14.0
+          image: ghcr.io/defenseunicorns/pepr/controller:v20.0.0
           imagePullPolicy: IfNotPresent
           command:
             - node

@@ -1,7 +1,7 @@
 # The version of Zarf to use. To keep this repo as portable as possible the Zarf binary will be downloaded and added to
 # the build folder.
 # renovate: datasource=github-tags depName=defenseunicorns/zarf
-ZARF_VERSION := v0.32.2
+ZARF_VERSION := v0.32.6
 UDS_CLI_VERSION := v0.7.0
 
 # Figure out which Zarf binary we should use based on the operating system we are on
